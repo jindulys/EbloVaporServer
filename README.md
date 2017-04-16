@@ -7,6 +7,10 @@ To run this:
      swift package update
      swift build
      ./.build/Debug/App
+     
+To start your postgres DataBase
+
+    postgres -D /usr/local/var/postgres
 
 ## 📖 Documentation
 
