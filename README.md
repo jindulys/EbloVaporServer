@@ -1,6 +1,12 @@
-# Basic Template
+# Eblo Vapor Server
 
-A basic vapor template for starting a new Vapor web application. If you're using vapor toolbox, you can use: `vapor new --template=basic`
+This is my Eblo(Engineering Blogs App) Server, backed by wonderful vapor.
+
+To run this:
+
+     swift package update
+     swift build
+     ./.build/Debug/App
 
 ## 📖 Documentation
 
