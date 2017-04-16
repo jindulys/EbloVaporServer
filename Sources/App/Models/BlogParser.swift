@@ -29,7 +29,7 @@ public class BlogParserTest {
   public private(set) var articles: [String] = []
   
   /// The maximum depth for blog pagination.
-  private let maxDepth: Int = 100
+  private let maxDepth: Int = 2
   
   /// Current depth has processed.
   private var currentDepth: Int = 0
