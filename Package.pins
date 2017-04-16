@@ -50,6 +50,12 @@
       "version": "1.0.1"
     },
     {
+      "package": "Kanna",
+      "reason": null,
+      "repositoryURL": "https://github.com/tid-kijyun/Kanna.git",
+      "version": "2.2.1"
+    },
+    {
       "package": "Leaf",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/leaf.git",
@@ -86,10 +92,22 @@
       "version": "1.1.0"
     },
     {
+      "package": "SiYuanKit",
+      "reason": null,
+      "repositoryURL": "git@github.com:jindulys/SiYuanKit.git",
+      "version": "1.2.36"
+    },
+    {
       "package": "Socks",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/socks.git",
       "version": "1.2.7"
+    },
+    {
+      "package": "SwiftClibxml2",
+      "reason": null,
+      "repositoryURL": "https://github.com/tid-kijyun/SwiftClibxml2.git",
+      "version": "1.0.2"
     },
     {
       "package": "TLS",
