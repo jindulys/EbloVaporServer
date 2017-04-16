@@ -12,6 +12,10 @@ let testCompany = BlogParser(urlString: "https://engineeringblog.yelp.com/",
                         basedOnBaseURL: true)
 testCompany.parse()
 
+var parsedBlog = testCompany.articles.map {
+  return Blog(title: $0, urlString: $0, companyName: "Yelp")
+}
+
 drop.get("article") { request in
   let articles = try testCompany.articles.makeNode()
   return try drop.view.make("article", Node(node: ["articles" : articles]))
@@ -27,8 +31,12 @@ drop.get("version") { request in
 }
 
 drop.get("blogTest") { request in
-  var testBlog = Blog(title: "friday", urlString: "http://www.friday.com", companyName: "week")
-  try testBlog.save()
+  parsedBlog.forEach { blog in
+    var toSave = blog
+    do {
+      try toSave.save()
+    } catch {}
+  }
   return try JSON(node: Blog.all().makeNode())
 }
 
