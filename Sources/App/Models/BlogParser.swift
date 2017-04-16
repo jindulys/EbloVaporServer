@@ -11,7 +11,7 @@ import Kanna
 import Utilities
 
 /// This is a class used for parse a url.
-public class BlogParserTest {
+public class BlogParser {
   
   /// The string to parse.
   public var urlString: String
