@@ -11,6 +11,26 @@ To run this:
 To start your postgres DataBase
 
     postgres -D /usr/local/var/postgres
+    
+Some useful commands:
+
+    // To check your data base
+    psql
+    // then, for check all relations.
+    \d 
+    // connect to other data base
+    \connect your_other_database
+    
+    // Deploy your updates to heroku
+    git push heroku master
+    // Check heroku logs
+    heroku logs
+    
+    // To clean up your database
+    vapor build
+    vapor run prepare --revert
+    // To setup your database again
+    vapor run prepare
 
 ## 📖 Documentation
 
