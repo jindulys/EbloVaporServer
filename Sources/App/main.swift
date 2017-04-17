@@ -1,10 +1,10 @@
 import Vapor
 import VaporPostgreSQL
 
-let drop = Droplet(
-  preparations:[Blog.self],
-  providers:[VaporPostgreSQL.Provider.self]
-)
+let drop = Droplet()
+
+try drop.addProvider(VaporPostgreSQL.Provider)
+drop.preparations += Blog.self
 
 let testCompany = BlogParser(urlString: "https://engineeringblog.yelp.com/",
                             titleXPath: "//article//h3//a",
