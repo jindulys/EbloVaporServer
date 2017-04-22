@@ -18,6 +18,8 @@ Some useful commands:
     psql
     // then, for check all relations.
     \d 
+    // check all database you have
+    \l
     // connect to other data base
     \connect your_other_database
     
