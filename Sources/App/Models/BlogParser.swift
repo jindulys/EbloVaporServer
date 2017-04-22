@@ -69,8 +69,9 @@ public class BlogParser {
     self.currentDepth += 1
     
     parse(url: url, xPath: self.nextPageXPath) { nextPage in
-      let toBeParseURLString =
+      var toBeParseURLString =
         self.basedOnBaseURL ? self.urlString.appendTrimmedRepeatedElementString(nextPage) : nextPage
+      toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
       print("next to be parsed url: \(toBeParseURLString)")
       self.parse(url: toBeParseURLString)
     }
