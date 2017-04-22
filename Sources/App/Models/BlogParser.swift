@@ -53,13 +53,16 @@ public class BlogParser {
   // MARK: Priave
   /// Parse a URL.
   public func parse(url: String) {
-    if self.currentDepth < maxDepth {
-    } else {
+    guard self.currentDepth < maxDepth else {
+      print("Blog Parser has reached the max depth")
       return
     }
     
+    print("Current we are parsing: \(url)")
+    
     // 1. Find and print all title in current page.
     parse(url: url, xPath: self.titleXPath) { title in
+      print("Find article \(title)")
       articles.append(title)
     }
     
@@ -68,16 +71,26 @@ public class BlogParser {
     parse(url: url, xPath: self.nextPageXPath) { nextPage in
       let toBeParseURLString =
         self.basedOnBaseURL ? self.urlString.appendTrimmedRepeatedElementString(nextPage) : nextPage
+      print("next to be parsed url: \(toBeParseURLString)")
       self.parse(url: toBeParseURLString)
     }
   }
   
   /// Parse `xPath`, with url.
   private func parse(url: String, xPath: String, execute:(String) -> ()) {
-    guard let url = URL(string: url),
-      let doc = HTML(url: url, encoding: .utf8) else {
-        print("Invalid url")
-        return
+//    guard let url = URL(string: url),
+//      let doc = HTML(url: url, encoding: .utf8) else {
+//        print("Invalid url")
+//        return
+//    }
+    
+    guard let url = URL(string: url) else {
+      print("Invalid url");
+      return
+    }
+    guard let doc = HTML(url: url, encoding: .utf8) else {
+      print("Invalid doc");
+      return
     }
     for title in doc.xpath(xPath) {
       if let result = title.text {
