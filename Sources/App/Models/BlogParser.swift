@@ -29,7 +29,7 @@ public class BlogParser {
   public private(set) var articles: [String] = []
   
   /// The maximum depth for blog pagination.
-  private let maxDepth: Int = 2
+  private let maxDepth: Int = 10
   
   /// Current depth has processed.
   private var currentDepth: Int = 0
@@ -58,8 +58,6 @@ public class BlogParser {
       return
     }
     
-    print("Current we are parsing: \(url)")
-    
     // 1. Find and print all title in current page.
     parse(url: url, xPath: self.titleXPath) { title in
       print("Find article \(title)")
@@ -79,12 +77,6 @@ public class BlogParser {
   
   /// Parse `xPath`, with url.
   private func parse(url: String, xPath: String, execute:(String) -> ()) {
-//    guard let url = URL(string: url),
-//      let doc = HTML(url: url, encoding: .utf8) else {
-//        print("Invalid url")
-//        return
-//    }
-    
     guard let url = URL(string: url) else {
       print("Invalid url");
       return
