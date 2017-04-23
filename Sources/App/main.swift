@@ -1,3 +1,4 @@
+import Dispatch
 import Vapor
 import VaporPostgreSQL
 
@@ -5,6 +6,9 @@ let drop = Droplet()
 
 try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations += Blog.self
+
+let blogController = BlogController()
+blogController.addRoutes(drop: drop)
 
 let testCompany = BlogParser(urlString: "https://engineeringblog.yelp.com/",
                             titleXPath: "//article//h3//a",
@@ -16,28 +20,27 @@ var parsedBlog = testCompany.articles.map {
   return Blog(title: $0, urlString: $0, companyName: "Yelp")
 }
 
-drop.get("article") { request in
-  let articles = try testCompany.articles.makeNode()
-  return try drop.view.make("article", Node(node: ["articles" : articles]))
-}
-
-drop.get("version") { request in
-  if let db = drop.database?.driver as? PostgreSQLDriver {
-    let version = try db.raw("SELECT version()")
-    return try JSON(node: version)
-  } else {
-    return "No db connection"
-  }
-}
-
-drop.get("blogTest") { request in
+// Use timer to save parsed blog later, since right now database does not work.
+let timer = DispatchSource.makeTimerSource()
+timer.setEventHandler() {
   parsedBlog.forEach { blog in
+    print("execute")
     var toSave = blog
     do {
       try toSave.save()
-    } catch {}
+      print("Save blog")
+    } catch{
+      print("Some Error\(error)")
+    }
   }
-  return try JSON(node: Blog.all().makeNode())
+}
+
+let now = DispatchTime.now()
+timer.scheduleOneshot(deadline: .now() + 1)
+if #available(OSX 10.12, *) {
+  timer.activate()
+} else {
+  // Fallback on earlier versions
 }
 
 drop.run()
