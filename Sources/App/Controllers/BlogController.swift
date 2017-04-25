@@ -12,7 +12,7 @@ import Vapor
 import VaporPostgreSQL
 
 /// Controller for Blog
-final class BlogController {
+final class BlogController: ResourceRepresentable {
   
   func addRoutes(drop: Droplet) {
     let base = drop.grouped("blog")
@@ -34,5 +34,30 @@ final class BlogController {
   /// Get test blogs
   func getBlogs(request: Request) throws -> ResponseRepresentable {
     return try JSON(node: Blog.all().makeNode())
+  }
+  
+  func create(request: Request) throws -> ResponseRepresentable {
+    var blog = try request.blog()
+    try blog.save()
+    return blog
+  }
+  
+  func show(request: Request, blog: Blog) throws -> ResponseRepresentable {
+    return blog
+  }
+  
+  func makeResource() -> Resource<Blog> {
+    return Resource(
+      index: getBlogs
+    )
+  }
+}
+
+extension Request {
+  func blog() throws -> Blog {
+    guard let json = json else {
+      throw Abort.badRequest
+    }
+    return try Blog(node: json)
   }
 }
