@@ -19,28 +19,28 @@ final class Blog: Model {
   var title: String
   
   /// url string for this blog.
-  var url_string: String
+  var urlString: String
   
   /// Blog's company name.
-  var company_name: String
+  var companyName: String
   
   /// the author name.
-  var author_name: String
+  var authorName: String
   
   /// the author avatar url.
-  var author_avatar: String
+  var authorAvatar: String
   
   /// the publish date.
-  var publish_date: String
+  var publishDate: String
   
   init(node: Node, in context: Context) throws {
     id = try node.extract("id")
     title = try node.extract("title")
-    url_string = try node.extract("urlstring")
-    company_name = try node.extract("company")
-    author_name = try node.extract("authorname")
-    author_avatar = try node.extract("authoravatar")
-    publish_date = try node.extract("publishdate")
+    urlString = try node.extract("urlstring")
+    companyName = try node.extract("company")
+    authorName = try node.extract("authorname")
+    authorAvatar = try node.extract("authoravatar")
+    publishDate = try node.extract("publishdate")
   }
   
   init(title: String,
@@ -50,12 +50,12 @@ final class Blog: Model {
        authorAvatar: String = "",
        publishDate: String = "") {
     self.title = title
-    self.url_string = urlString
-    self.company_name = companyName
+    self.urlString = urlString
+    self.companyName = companyName
     self.id = nil
-    self.author_avatar = authorAvatar
-    self.author_name = authorName
-    self.publish_date = publishDate
+    self.authorAvatar = authorAvatar
+    self.authorName = authorName
+    self.publishDate = publishDate
   }
   
   // MARK: JSONRepresentable
@@ -63,11 +63,11 @@ final class Blog: Model {
     return try Node(node:[
         "id" : id,
         "title" : title,
-        "urlstring" : url_string,
-        "company" : company_name,
-        "authorname" : author_name,
-        "authoravatar" : author_avatar,
-        "publishdate" : publish_date
+        "urlstring" : urlString,
+        "company" : companyName,
+        "authorname" : authorName,
+        "authoravatar" : authorAvatar,
+        "publishdate" : publishDate
       ])
   }
   
