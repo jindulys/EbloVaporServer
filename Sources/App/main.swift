@@ -9,11 +9,15 @@ drop.preparations += Blog.self
 
 let blogController = BlogController()
 blogController.addRoutes(drop: drop)
+drop.resource("blogs", blogController)
 
-let testCompany = BlogParser(urlString: "https://engineeringblog.yelp.com/",
-                            titleXPath: "//article//h3//a",
-                         nextPageXPath: "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href",
-                        basedOnBaseURL: true)
+let yelpArticleInfo = ArticleInfoPath(title: "//article//h3//a", href: "", authorName: "", authorAvatar: "", publishDate: "")
+let yelpMetaData = BlogMetaInfo(nextPageXPath: "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href")
+
+let testCompany = BlogParser(baseURLString: "https://engineeringblog.yelp.com/",
+                             articlePath: yelpArticleInfo,
+                             metaData: yelpMetaData,
+                             basedOnBaseURL: true)
 testCompany.parse()
 
 var parsedBlog = testCompany.articles.map {

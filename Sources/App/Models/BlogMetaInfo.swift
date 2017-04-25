@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+/// A struct stores all kinds of meta data about a eng website.
+public struct BlogMetaInfo {
+  /// XPath to next page.
+  public var nextPageXPath: String?
+}

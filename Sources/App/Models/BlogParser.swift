@@ -14,16 +14,16 @@ import Utilities
 public class BlogParser {
   
   /// The string to parse.
-  public var urlString: String
-  
-  /// XPath to article title.
-  public let titleXPath: String
-  
-  /// XPath to next page.
-  public let nextPageXPath: String
+  public var baseURLString: String
   
   /// Whether or not be need the base url to composite a valid URL.
   public let basedOnBaseURL: Bool
+  
+  /// XPath infos for article.
+  public let articlePath: ArticleInfoPath
+  
+  /// Meta data for article.
+  public let metaData: BlogMetaInfo
   
   /// Array contains all the article titles founded.
   public private(set) var articles: [String] = []
@@ -34,19 +34,19 @@ public class BlogParser {
   /// Current depth has processed.
   private var currentDepth: Int = 0
   
-  init(urlString: String,
-       titleXPath: String,
-       nextPageXPath: String,
+  init(baseURLString: String,
+       articlePath: ArticleInfoPath,
+       metaData: BlogMetaInfo,
        basedOnBaseURL: Bool) {
-    self.urlString = urlString
-    self.titleXPath = titleXPath
-    self.nextPageXPath = nextPageXPath
+    self.baseURLString = baseURLString
+    self.articlePath = articlePath
+    self.metaData = metaData
     self.basedOnBaseURL = basedOnBaseURL
   }
   
   /// Parse this company's blog.
   public func parse() {
-    parse(url: self.urlString)
+    parse(url: self.baseURLString)
     print("Parse Finished, total found \(self.articles.count) aritcles")
   }
   
@@ -59,19 +59,21 @@ public class BlogParser {
     }
     
     // 1. Find and print all title in current page.
-    parse(url: url, xPath: self.titleXPath) { title in
+    parse(url: url, xPath: self.articlePath.title) { title in
       print("Find article \(title)")
       articles.append(title)
     }
     
     self.currentDepth += 1
     
-    parse(url: url, xPath: self.nextPageXPath) { nextPage in
-      var toBeParseURLString =
-        self.basedOnBaseURL ? self.urlString.appendTrimmedRepeatedElementString(nextPage) : nextPage
-      toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
-      print("next to be parsed url: \(toBeParseURLString)")
-      self.parse(url: toBeParseURLString)
+    if let nextPageXPath = self.metaData.nextPageXPath {
+      parse(url: url, xPath: nextPageXPath) { nextPage in
+        var toBeParseURLString =
+          self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(nextPage) : nextPage
+        toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
+        print("next to be parsed url: \(toBeParseURLString)")
+        self.parse(url: toBeParseURLString)
+      }
     }
   }
   
