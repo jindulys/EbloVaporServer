@@ -17,23 +17,45 @@ final class Blog: Model {
   
   /// Title for this blog.
   var title: String
+  
   /// url string for this blog.
   var url_string: String
-  /// Blog's company name
+  
+  /// Blog's company name.
   var company_name: String
+  
+  /// the author name.
+  var author_name: String
+  
+  /// the author avatar url.
+  var author_avatar: String
+  
+  /// the publish date.
+  var publish_date: String
   
   init(node: Node, in context: Context) throws {
     id = try node.extract("id")
     title = try node.extract("title")
     url_string = try node.extract("urlstring")
     company_name = try node.extract("company")
+    author_name = try node.extract("authorname")
+    author_avatar = try node.extract("authoravatar")
+    publish_date = try node.extract("publishdate")
   }
   
-  init(title: String, urlString: String, companyName: String) {
+  init(title: String,
+       urlString: String,
+       companyName: String,
+       authorName: String = "",
+       authorAvatar: String = "",
+       publishDate: String = "") {
     self.title = title
     self.url_string = urlString
     self.company_name = companyName
     self.id = nil
+    self.author_avatar = authorAvatar
+    self.author_name = authorName
+    self.publish_date = publishDate
   }
   
   // MARK: JSONRepresentable
@@ -43,6 +65,9 @@ final class Blog: Model {
         "title" : title,
         "urlstring" : url_string,
         "company" : company_name,
+        "authorname" : author_name,
+        "authoravatar" : author_avatar,
+        "publishdate" : publish_date
       ])
   }
   
@@ -53,6 +78,9 @@ final class Blog: Model {
       blogs.string("title")
       blogs.string("urlstring")
       blogs.string("company")
+      blogs.string("authorname", optional: true)
+      blogs.string("authoravatar", optional: true)
+      blogs.string("publishdate", optional: true)
     })
   }
   
