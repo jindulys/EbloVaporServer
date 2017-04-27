@@ -24,14 +24,10 @@ let testCompany = BlogParser(baseURLString: "https://engineeringblog.yelp.com/",
                              basedOnBaseURL: true)
 testCompany.parse()
 
-var parsedBlog = testCompany.articles.map {
-  return Blog(title: $0, urlString: $0, companyName: "Yelp")
-}
-
 // Use timer to save parsed blog later, since right now database does not work.
 let timer = DispatchSource.makeTimerSource()
 timer.setEventHandler() {
-  parsedBlog.forEach { blog in
+  testCompany.Blogs.forEach { blog in
     print("execute")
     var toSave = blog
     do {

@@ -28,6 +28,21 @@ public class BlogParser {
   /// Array contains all the article titles founded.
   public private(set) var articles: [String] = []
   
+  /// Array for articleURLs.
+  public private(set) var articleURLs: [String] = []
+  
+  /// Array for publish dates.
+  public private(set) var publishDates: [String] = []
+  
+  /// Array for author names.
+  public private(set) var authorNames: [String] = []
+  
+  /// Array for author avatar urls.
+  public private(set) var authorAvatarURLs: [String] = []
+  
+  /// Array for parse blog.
+  public private(set) var Blogs: [Blog] = []
+  
   /// The maximum depth for blog pagination.
   private let maxDepth: Int = 10
   
@@ -48,6 +63,20 @@ public class BlogParser {
   public func parse() {
     parse(url: self.baseURLString)
     print("Parse Finished, total found \(self.articles.count) aritcles")
+    print("Parse Finished, total found \(self.articleURLs.count) article urls")
+    print("Parse Finished, total found \(self.publishDates.count) dates")
+    if self.articles.count == self.articleURLs.count {
+      for (index, title) in self.articles.enumerated() {
+        let blog = Blog(title: title, urlString: self.articleURLs[index], companyName: "Yelp")
+        self.Blogs.append(blog)
+      }
+    }
+    if self.publishDates.count == self.articles.count {
+      for (index, date) in self.publishDates.enumerated() {
+        let blog = self.Blogs[index]
+        blog.publishDate = date
+      }
+    }
   }
   
   // MARK: Priave
@@ -62,6 +91,20 @@ public class BlogParser {
     parse(url: url, xPath: self.articlePath.title) { title in
       print("Find article \(title)")
       articles.append(title)
+    }
+    
+    parse(url: url, xPath: self.articlePath.href) { href in
+      let articleURL =
+        self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
+      print("Find article url \(articleURL)")
+      articleURLs.append(articleURL)
+    }
+    
+    if let publishDate = self.articlePath.publishDate {
+      parse(url: url, xPath: publishDate) { date in
+        print("Find article url \(date)")
+        publishDates.append(date)
+      }
     }
     
     self.currentDepth += 1

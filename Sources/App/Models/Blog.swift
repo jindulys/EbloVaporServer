@@ -10,30 +10,30 @@ import Foundation
 import Vapor
 
 /// Class represents a blog.
-final class Blog: Model {
-  var id: Node?
+public final class Blog: Model {
+  public var id: Node?
   
-  var exists: Bool = false
+  public var exists: Bool = false
   
   /// Title for this blog.
-  var title: String
+  public var title: String
   
   /// url string for this blog.
-  var urlString: String
+  public var urlString: String
   
   /// Blog's company name.
-  var companyName: String
+  public var companyName: String
   
   /// the author name.
-  var authorName: String
+  public var authorName: String
   
   /// the author avatar url.
-  var authorAvatar: String
+  public var authorAvatar: String
   
   /// the publish date.
-  var publishDate: String
+  public var publishDate: String
   
-  init(node: Node, in context: Context) throws {
+  public init(node: Node, in context: Context) throws {
     id = try node.extract("id")
     title = try node.extract("title")
     urlString = try node.extract("urlstring")
@@ -43,7 +43,7 @@ final class Blog: Model {
     publishDate = try node.extract("publishdate")
   }
   
-  init(title: String,
+  public init(title: String,
        urlString: String,
        companyName: String,
        authorName: String = "",
@@ -59,7 +59,7 @@ final class Blog: Model {
   }
   
   // MARK: JSONRepresentable
-  func makeNode(context: Context) throws -> Node {
+  public func makeNode(context: Context) throws -> Node {
     return try Node(node:[
         "id" : id,
         "title" : title,
@@ -72,7 +72,7 @@ final class Blog: Model {
   }
   
   // MARK: Model
-  static func prepare(_ database: Database) throws {
+  public static func prepare(_ database: Database) throws {
     try database.create("blogs", closure: { blogs in
       blogs.id()
       blogs.string("title")
@@ -84,7 +84,7 @@ final class Blog: Model {
     })
   }
   
-  static func revert(_ database: Database) throws {
+  public static func revert(_ database: Database) throws {
     try database.delete("blogs")
   }
 }
