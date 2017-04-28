@@ -77,6 +77,20 @@ public class BlogParser {
         blog.publishDate = date
       }
     }
+    
+    if self.authorNames.count == self.articles.count {
+      for (index, name) in self.authorNames.enumerated() {
+        let blog = self.Blogs[index]
+        blog.authorName = name
+      }
+    }
+    
+    if self.authorAvatarURLs.count == self.articles.count {
+      for (index, url) in self.authorAvatarURLs.enumerated() {
+        let blog = self.Blogs[index]
+        blog.authorAvatar = url
+      }
+    }
   }
   
   // MARK: Priave
@@ -104,6 +118,22 @@ public class BlogParser {
       parse(url: url, xPath: publishDate) { date in
         print("Find article url \(date)")
         publishDates.append(date)
+      }
+    }
+    
+    if let avatarName = self.articlePath.authorName {
+      parse(url: url, xPath: avatarName) { name in
+        print("Find name \(name)")
+        authorNames.append(name)
+      }
+    }
+    
+    if let avatarURL = self.articlePath.authorAvatar {
+      parse(url: url, xPath: avatarURL) { href in
+        let avatarURL =
+          self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
+        print("Find article url \(avatarURL)")
+        authorAvatarURLs.append(avatarURL)
       }
     }
     
