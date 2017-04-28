@@ -22,11 +22,7 @@ final class BlogController: ResourceRepresentable {
   
   /// Get all articles
   func articleWebPage(request: Request) throws -> ResponseRepresentable {
-    let articles = try Blog.all().map({ blog in
-      return blog.title
-    }).filter { (tilte) -> Bool in
-      return tilte.characters.count > 10
-    }
+    let articles = try Blog.all()
     let articleNodes = try articles.makeNode()
     return try drop.view.make("article", Node(node: ["articles" : articleNodes]))
   }
