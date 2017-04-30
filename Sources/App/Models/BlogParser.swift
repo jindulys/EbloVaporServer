@@ -19,6 +19,9 @@ public class BlogParser {
   /// Whether or not be need the base url to composite a valid URL.
   public let basedOnBaseURL: Bool
   
+  /// The companyName.
+  public let companyName: String
+  
   /// XPath infos for article.
   public let articlePath: ArticleInfoPath
   
@@ -52,25 +55,37 @@ public class BlogParser {
   init(baseURLString: String,
        articlePath: ArticleInfoPath,
        metaData: BlogMetaInfo,
+       companyName: String,
        basedOnBaseURL: Bool) {
     self.baseURLString = baseURLString
     self.articlePath = articlePath
     self.metaData = metaData
+    self.companyName = companyName
     self.basedOnBaseURL = basedOnBaseURL
   }
   
   /// Parse this company's blog.
   public func parse() {
+    self.parse(completion: nil)
+  }
+  
+  public func parse(completion: ((Bool) -> ())?) {
     parse(url: self.baseURLString)
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
+    var complete = true
     if self.articles.count == self.articleURLs.count {
       for (index, title) in self.articles.enumerated() {
-        let blog = Blog(title: title, urlString: self.articleURLs[index], companyName: "Yelp")
+        let blog = Blog(title: title,
+                        urlString: self.articleURLs[index],
+                        companyName: self.companyName)
         self.Blogs.append(blog)
       }
+    } else {
+      complete = false
     }
+
     if self.publishDates.count == self.articles.count {
       for (index, date) in self.publishDates.enumerated() {
         let blog = self.Blogs[index]
@@ -90,6 +105,10 @@ public class BlogParser {
         let blog = self.Blogs[index]
         blog.authorAvatar = url
       }
+    }
+    
+    if let completion = completion {
+      completion(complete)
     }
   }
   

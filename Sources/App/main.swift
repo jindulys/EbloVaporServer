@@ -28,7 +28,7 @@ timer.setEventHandler() {
     }
   }
 }
-timer.scheduleOneshot(deadline: .now() + 1)
+timer.scheduleOneshot(deadline: .now() + 6)
 if #available(OSX 10.12, *) {
   timer.activate()
 } else {
