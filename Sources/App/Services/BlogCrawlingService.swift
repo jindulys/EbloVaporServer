@@ -20,7 +20,8 @@ class BlogCrawlingService {
   func startService() {
     var url = URL(string: "https://api.myjson.com/bins/12edgp")
     if EnviromentManager.local {
-      let urlPath = Bundle.main.path(forResource: "company", ofType: "json")
+      let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"
+      let urlPath = Bundle.main.path(forResource: resourceName, ofType: "json")
       url = NSURL.fileURL(withPath: urlPath!)
     }
     guard let data = try? Data(contentsOf: url!) else {
