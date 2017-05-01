@@ -18,7 +18,11 @@ class BlogCrawlingService {
   
   /// Start service
   func startService() {
-    let url = URL(string: "https://api.myjson.com/bins/12edgp")
+    var url = URL(string: "https://api.myjson.com/bins/12edgp")
+    if EnviromentManager.local {
+      let urlPath = Bundle.main.path(forResource: "company", ofType: "json")
+      url = NSURL.fileURL(withPath: urlPath!)
+    }
     guard let data = try? Data(contentsOf: url!) else {
       print("\(self) can not load data from URL \(url!)")
       return
