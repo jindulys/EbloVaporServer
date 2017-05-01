@@ -16,7 +16,7 @@
 			"baseURL": "https://news.realm.io/news/",
 			"basedOnBase": true,
 			"title": "//figure//h5",
-			"href": "//figure//div[@class='article-block']//div[@class='excerpt']/a/@href",
+			"href": "//figure//div[@class='article-block']//div[@class='excerpt']/a[1]",
 			"auther": "//figure//a[@class='twitter-handle']",
 			"date": "//figure//span[@class='article-date']",
 			"nextPage": "//a[@class='btn btn-outline btn-large next']//@href"
