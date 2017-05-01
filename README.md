@@ -22,6 +22,8 @@ Some useful commands:
     \l
     // connect to other data base
     \connect your_other_database
+    // Show the schema for your table
+    \d+ TABLENAME
     
     // Deploy your updates to heroku
     git push heroku master
@@ -32,7 +34,10 @@ Some useful commands:
     vapor build
     vapor run prepare --revert
     // To setup your database again
-    vapor run prepare
+    run your project again.
+    
+    // To clean up your heroku database.
+    heroku pg:reset DATABASE_URL
 
 ## 📖 Documentation
 
