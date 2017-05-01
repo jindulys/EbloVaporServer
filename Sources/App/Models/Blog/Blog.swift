@@ -88,3 +88,9 @@ public final class Blog: Model {
     try database.delete("blogs")
   }
 }
+
+extension Blog: Unique {
+  public func identifier() -> String {
+    return self.title + self.companyName
+  }
+}
