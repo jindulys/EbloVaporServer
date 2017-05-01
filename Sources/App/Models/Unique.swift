@@ -9,13 +9,13 @@
 import Foundation
 
 /// Protocol for object with unique identifier.
-protocol Unique {
+public protocol Unique {
   associatedtype Key: CustomStringConvertible
   func identifier() -> Key
 }
 
 extension Unique {
-  func string() -> String {
+  public func string() -> String {
     return String(describing: identifier())
   }
 }
