@@ -1,0 +1,25 @@
+{
+	"company": [
+		{
+			"name": "yelp",
+			"baseURL": "https://engineeringblog.yelp.com/",
+			"basedOnBase": true,
+			"title": "//article//h3//a",
+			"href": "//article//h3//a/@href",
+			"author": "//article//div[@class='post-info']//img/@alt",
+			"authorAvatar": "//article//div[@class='post-info']//img/@src",
+			"date": "//article//div[@class='post-info']//li[@class='post-date']",
+			"nextPage": "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href"
+		},
+		{
+			"name": "Realm.io",
+			"baseURL": "https://news.realm.io/news/",
+			"basedOnBase": true,
+			"title": "//figure//h5",
+			"href": "//figure//div[@class='article-block']//div[@class='excerpt']/a/@href",
+			"auther": "//figure//a[@class='twitter-handle']",
+			"date": "//figure//span[@class='article-date']",
+			"nextPage": "//a[@class='btn btn-outline btn-large next']//@href"
+		}
+	]
+}
