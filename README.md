@@ -38,6 +38,18 @@ Some useful commands:
     
     // To clean up your heroku database.
     heroku pg:reset DATABASE_URL
+    
+## TODO List
+
+ 1. Add in cron job to fetch the new data everyday
+ 2. Create a company entity it self.
+ 3. For each new company xpath data, first create company entity, check whether or not we have parsed that company,
+    then we can treat them differently, for those new fetch all the blogs, for those existed, only check updates.
+ 4. User login support.
+ 5. User fetch home page, pagination.
+ 6. Fav/Sav
+ 7. Search specific company's blog
+ 8. Topic learning.
 
 ## 📖 Documentation
 
