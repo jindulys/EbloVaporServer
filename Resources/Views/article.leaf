@@ -6,8 +6,8 @@
   <body>
     #loop(articles, "article") {
       <h1>#(article.title)</h1>
-      <h1>#(article.publishdate)</h1>
-      <h1>#(article.authorname)</h1>
+      <h2>#(article.publishdate)</h2>
+      <h2>#(article.authorname)</h2>
     }
   </body>
 </html>

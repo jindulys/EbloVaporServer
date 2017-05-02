@@ -18,7 +18,7 @@ class BlogCrawlingService {
   
   /// Start service
   func startService() {
-    var url = URL(string: "https://api.myjson.com/bins/1g604t")
+    var url = URL(string: "https://api.myjson.com/bins/dewd9")
     #if os(OSX)
     if EnviromentManager.local {
       let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"
