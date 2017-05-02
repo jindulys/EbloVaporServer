@@ -120,57 +120,6 @@ public class BlogParser {
       return
     }
     
-    // 1. Find and print all title in current page.
-    parse(url: url, xPath: self.articlePath.title) { title in
-      print("Find article \(title)")
-      articles.append(title)
-    }
-    
-    parse(url: url, xPath: self.articlePath.href) { href in
-      let articleURL =
-        self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-      print("Find article url \(articleURL)")
-      articleURLs.append(articleURL)
-    }
-    
-    if let publishDate = self.articlePath.publishDate {
-      parse(url: url, xPath: publishDate) { date in
-        print("Find article url \(date)")
-        publishDates.append(date)
-      }
-    }
-    
-    if let avatarName = self.articlePath.authorName {
-      parse(url: url, xPath: avatarName) { name in
-        print("Find name \(name)")
-        authorNames.append(name)
-      }
-    }
-    
-    if let avatarURL = self.articlePath.authorAvatar {
-      parse(url: url, xPath: avatarURL) { href in
-        let avatarURL =
-          self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-        print("Find article url \(avatarURL)")
-        authorAvatarURLs.append(avatarURL)
-      }
-    }
-    
-    self.currentDepth += 1
-    
-    if let nextPageXPath = self.metaData.nextPageXPath {
-      parse(url: url, xPath: nextPageXPath) { nextPage in
-        var toBeParseURLString =
-          self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(nextPage) : nextPage
-        toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
-        print("next to be parsed url: \(toBeParseURLString)")
-        self.parse(url: toBeParseURLString)
-      }
-    }
-  }
-  
-  /// Parse `xPath`, with url.
-  private func parse(url: String, xPath: String, execute:(String) -> ()) {
     guard let url = URL(string: url) else {
       print("Invalid url");
       return
@@ -179,8 +128,60 @@ public class BlogParser {
       print("Invalid doc");
       return
     }
-    for title in doc.xpath(xPath) {
-      if let result = title.text {
+    
+    // 1. Find and print all title in current page.
+    parse(doc: doc, xPath: self.articlePath.title) { title in
+      print("Find article \(title)")
+      articles.append(title)
+    }
+    
+    parse(doc: doc, xPath: self.articlePath.href) { href in
+      let articleURL =
+        self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
+      print("Find article url \(articleURL)")
+      articleURLs.append(articleURL)
+    }
+    
+    if let publishDate = self.articlePath.publishDate {
+      parse(doc: doc, xPath: publishDate) { date in
+        print("Find article url \(date)")
+        publishDates.append(date)
+      }
+    }
+    
+    if let avatarName = self.articlePath.authorName {
+      parse(doc: doc, xPath: avatarName) { name in
+        print("Find name \(name)")
+        authorNames.append(name)
+      }
+    }
+    
+    if let avatarURL = self.articlePath.authorAvatar {
+      parse(doc: doc, xPath: avatarURL) { href in
+        let avatarURL =
+          self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
+        print("Find article url \(avatarURL)")
+        authorAvatarURLs.append(avatarURL)
+      }
+    }
+
+    self.currentDepth += 1
+    
+    if let nextPageXPath = self.metaData.nextPageXPath {
+      parse(doc: doc, xPath: nextPageXPath) { nextPage in
+        var toBeParseURLString =
+            self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(nextPage) : nextPage
+        toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
+        print("next to be parsed url: \(toBeParseURLString)")
+        self.parse(url: toBeParseURLString)
+      }
+    }
+  }
+  
+  /// Parse a HTML, with xPath.
+  private func parse(doc: HTMLDocument, xPath: String, execute:(String) -> ()) {
+    for element in doc.xpath(xPath) {
+      if let result = element.text {
         execute(result)
       }
     }
