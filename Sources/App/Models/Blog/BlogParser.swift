@@ -121,7 +121,7 @@ public class BlogParser {
     // 3. Find all article publishDate.
     if let publishDate = self.articlePath.publishDate {
       parse(doc: doc, xPath: publishDate) { date in
-        print("Find article url \(date)")
+        print("Find publish date \(date)")
         publishDates.append(date)
         self.publishDates.append(date)
       }

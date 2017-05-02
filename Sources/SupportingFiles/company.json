@@ -45,6 +45,24 @@
               "title": "/html//div[@class='post-content']//a",
               "href": "/html//div[@class='post-content']//a/@href",
               "date": "//article//header//time"
+              },
+              {
+              "name": "Made Tech",
+              "baseURL": "https://www.madetech.com/blog/",
+              "basedOnBase": true,
+              "title": "/html//article/h3/a",
+              "href": "/html//article/h3/a/@href",
+              "author": "//article//div[@class='newsArticles-list-item-meta']/img/@alt",
+              "nextPage": "//nav[@class='pagination']//span[@class='next']//a/@href"
+              },
+              {
+              "name": "Gusto",
+              "baseURL": "http://engineering.gusto.com/",
+              "basedOnBase": true,
+              "title": "//article//h1/a",
+              "href": "//article//h1/a/@href",
+              "date": "//article//header//time",
+              "nextPage": "//nav[@class='pagination']//a[@class='older-posts']/@href"
               }
 	]
 }
