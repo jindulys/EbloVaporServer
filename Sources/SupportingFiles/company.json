@@ -20,6 +20,31 @@
               "author": "//figure//a[@class='twitter-handle']",
               "date": "//figure//span[@class='article-date']",
               "nextPage": "//a[@class='btn btn-outline btn-large next']/@href"
+              },
+              {
+              "name": "Artsy",
+              "baseURL": "https://artsy.github.io/",
+              "basedOnBase": true,
+              "title": "//*[@id='content']/div/article/div/div[1]/header/a/h2",
+              "href": "//*[@id='content']/div/article/div/div[1]/header/a/@href",
+              "nextPage": "(//div[@class='pagination']/a)[last()]/@href"
+              },
+              {
+              "name": "Gilt",
+              "baseURL": "http://tech.gilt.com",
+              "basedOnBase": false,
+              "title": "//*[@id='main']/div[2]/div/article/h1/a",
+              "href": "//*[@id='main']/div[2]/div/article/h1/a/@href",
+              "date": "//article//header//time",
+              "nextPage": "//div[@class='pager']//a/@href"
+              },
+              {
+              "name": "Uber",
+              "baseURL": "http://eng.uber.com/",
+              "basedOnBase": false,
+              "title": "/html//div[@class='post-content']//a",
+              "href": "/html//div[@class='post-content']//a/@href",
+              "date": "//article//header//time"
               }
 	]
 }

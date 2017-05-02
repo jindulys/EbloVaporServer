@@ -1,14 +1,12 @@
 {
 	"company": [
     {
-			"name": "Realm.io",
-			"baseURL": "https://news.realm.io/news/",
-			"basedOnBase": true,
-			"title": "//figure//h5",
-			"href": "//figure//a[@class='post quick']/@href",
-			"author": "//figure//a[@class='twitter-handle']",
-			"date": "//figure//span[@class='article-date']",
-			"nextPage": "//a[@class='btn btn-outline btn-large next']/@href"
+			"name": "Uber",
+			"baseURL": "http://eng.uber.com/",
+			"basedOnBase": false,
+			"title": "/html//div[@class='post-content']//a",
+			"href": "/html//div[@class='post-content']//a/@href",
+      "date": "//article//header//time"
 		}
 	]
 }
