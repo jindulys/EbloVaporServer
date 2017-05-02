@@ -74,41 +74,8 @@ public class BlogParser {
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
-    var complete = true
-    if self.articles.count == self.articleURLs.count {
-      for (index, title) in self.articles.enumerated() {
-        let blog = Blog(title: title,
-                        urlString: self.articleURLs[index],
-                        companyName: self.companyName)
-        self.Blogs.append(blog)
-      }
-    } else {
-      complete = false
-    }
-
-    if self.publishDates.count == self.articles.count {
-      for (index, date) in self.publishDates.enumerated() {
-        let blog = self.Blogs[index]
-        blog.publishDate = date
-      }
-    }
-    
-    if self.authorNames.count == self.articles.count {
-      for (index, name) in self.authorNames.enumerated() {
-        let blog = self.Blogs[index]
-        blog.authorName = name
-      }
-    }
-    
-    if self.authorAvatarURLs.count == self.articles.count {
-      for (index, url) in self.authorAvatarURLs.enumerated() {
-        let blog = self.Blogs[index]
-        blog.authorAvatar = url
-      }
-    }
-    
     if let completion = completion {
-      completion(complete)
+      completion(true)
     }
   }
   
@@ -129,41 +96,89 @@ public class BlogParser {
       return
     }
     
+    var articles: [String] = []
+    var articleURLs: [String] = []
+    var publishDates: [String] = []
+    var authorNames: [String] = []
+    var authorAvatarURLs: [String] = []
+    
     // 1. Find and print all title in current page.
     parse(doc: doc, xPath: self.articlePath.title) { title in
       print("Find article \(title)")
       articles.append(title)
+      self.articles.append(title)
     }
     
+    // 2. Find all article hrefs.
     parse(doc: doc, xPath: self.articlePath.href) { href in
       let articleURL =
         self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
       print("Find article url \(articleURL)")
       articleURLs.append(articleURL)
+      self.articleURLs.append(articleURL)
     }
     
+    // 3. Find all article publishDate.
     if let publishDate = self.articlePath.publishDate {
       parse(doc: doc, xPath: publishDate) { date in
         print("Find article url \(date)")
         publishDates.append(date)
+        self.publishDates.append(date)
       }
     }
     
+    // 4. Find all author names.
     if let avatarName = self.articlePath.authorName {
       parse(doc: doc, xPath: avatarName) { name in
         print("Find name \(name)")
         authorNames.append(name)
+        self.authorNames.append(name)
       }
     }
     
+    // 5. Find all author avatar.
     if let avatarURL = self.articlePath.authorAvatar {
       parse(doc: doc, xPath: avatarURL) { href in
         let avatarURL =
           self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
         print("Find article url \(avatarURL)")
         authorAvatarURLs.append(avatarURL)
+        self.authorAvatarURLs.append(avatarURL)
       }
     }
+    
+    var currentGeneratedBlogs: [Blog] = []
+    if articles.count == articleURLs.count {
+      for (index, title) in articles.enumerated() {
+        let blog = Blog(title: title,
+                        urlString: articleURLs[index],
+                        companyName: self.companyName)
+        currentGeneratedBlogs.append(blog)
+      }
+    }
+    
+    if publishDates.count == articles.count {
+      for (index, date) in publishDates.enumerated() {
+        let blog = currentGeneratedBlogs[index]
+        blog.publishDate = date
+      }
+    }
+    
+    if authorNames.count == articles.count {
+      for (index, name) in authorNames.enumerated() {
+        let blog = currentGeneratedBlogs[index]
+        blog.authorName = name
+      }
+    }
+    
+    if authorAvatarURLs.count == articles.count {
+      for (index, url) in authorAvatarURLs.enumerated() {
+        let blog = currentGeneratedBlogs[index]
+        blog.authorAvatar = url
+      }
+    }
+    
+    self.Blogs.append(contentsOf: currentGeneratedBlogs)
 
     self.currentDepth += 1
     
