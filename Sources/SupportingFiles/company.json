@@ -17,7 +17,7 @@
               "basedOnBase": true,
               "title": "//figure//h5",
               "href": "//figure//a[@class='post quick']/@href",
-              "auther": "//figure//a[@class='twitter-handle']",
+              "author": "//figure//a[@class='twitter-handle']",
               "date": "//figure//span[@class='article-date']",
               "nextPage": "//a[@class='btn btn-outline btn-large next']/@href"
               }
