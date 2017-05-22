@@ -202,3 +202,9 @@ public class BlogParser {
     }
   }
 }
+
+extension BlogParser: Unique {
+  public func identifier() -> String {
+    return baseURLString + companyName
+  }
+}
