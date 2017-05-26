@@ -22,7 +22,12 @@ final class BlogController: ResourceRepresentable {
   
   /// Get all articles
   func articleWebPage(request: Request) throws -> ResponseRepresentable {
-    let articles = try Blog.all()
+    let articles = try Blog.all().sorted { blog1, blog2 in
+      if blog1.companyName != blog1.companyName {
+        return blog1.companyName < blog2.companyName
+      }
+      return true
+    }
     let articleNodes = try articles.makeNode()
     return try drop.view.make("article", Node(node: ["articles" : articleNodes]))
   }

@@ -104,7 +104,7 @@ public class BlogParser {
     
     // 1. Find and print all title in current page.
     parse(doc: doc, xPath: self.articlePath.title) { title in
-      print("Find article \(title)")
+      //print("Find article \(title)")
       articles.append(title)
       self.articles.append(title)
     }
@@ -113,7 +113,7 @@ public class BlogParser {
     parse(doc: doc, xPath: self.articlePath.href) { href in
       let articleURL =
         self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-      print("Find article url \(articleURL)")
+      //print("Find article url \(articleURL)")
       articleURLs.append(articleURL)
       self.articleURLs.append(articleURL)
     }
@@ -121,7 +121,14 @@ public class BlogParser {
     // 3. Find all article publishDate.
     if let publishDate = self.articlePath.publishDate {
       parse(doc: doc, xPath: publishDate) { date in
-        print("Find publish date \(date)")
+        let trimmedString = date.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        print("Trimmed string is \(trimmedString)")
+        print("Notice regex begin!!")
+        let month = StringParsedDateComponents.month(from: trimmedString)
+        let day = StringParsedDateComponents.day(from: trimmedString)
+        let year = StringParsedDateComponents.year(from: trimmedString)
+        print("--- \(month), \(day), \(year)")
+        print("--- Date : \(StringParsedDateComponents.dateFrom(year: year, month: month, day: day))")
         publishDates.append(date)
         self.publishDates.append(date)
       }
@@ -130,7 +137,7 @@ public class BlogParser {
     // 4. Find all author names.
     if let avatarName = self.articlePath.authorName {
       parse(doc: doc, xPath: avatarName) { name in
-        print("Find name \(name)")
+        //print("Find name \(name)")
         authorNames.append(name)
         self.authorNames.append(name)
       }
@@ -141,7 +148,7 @@ public class BlogParser {
       parse(doc: doc, xPath: avatarURL) { href in
         let avatarURL =
           self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-        print("Find article url \(avatarURL)")
+        //print("Find article url \(avatarURL)")
         authorAvatarURLs.append(avatarURL)
         self.authorAvatarURLs.append(avatarURL)
       }
@@ -187,7 +194,7 @@ public class BlogParser {
         var toBeParseURLString =
             self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(nextPage) : nextPage
         toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
-        print("next to be parsed url: \(toBeParseURLString)")
+        //print("next to be parsed url: \(toBeParseURLString)")
         self.parse(url: toBeParseURLString)
       }
     }
