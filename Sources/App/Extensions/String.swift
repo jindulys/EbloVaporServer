@@ -17,7 +17,7 @@ extension String {
       let regex = try NSRegularExpression(pattern: pattern,
                                           options: .caseInsensitive)
       let range = NSMakeRange(0, self.characters.count)
-      let matchRange = regex.rangeOfFirstMatch(in: self, range: range)
+      let matchRange = regex.rangeOfFirstMatch(in: self, options: [], range: range)
       if matchRange.location != NSNotFound {
         let chars = Array(self.characters)
         return String(chars[matchRange.location..<matchRange.location+matchRange.length])
