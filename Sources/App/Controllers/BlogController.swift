@@ -29,17 +29,13 @@ final class BlogController: ResourceRepresentable {
       let sortedNodeArray = articleNodeArray.sorted { node1, node2 in
         switch (node1, node2) {
         case let (.object(object1), .object(object2)):
-          if let companyName1 = object1["company"], case let .string(name1) = companyName1,
-            let companyName2 = object2["company"], case let .string(name2) = companyName2,
-            name1 != name2 {
-            return name1 < name2
-          } else if let publishInterval1 = object1["publishdateinterval"],
-            case let .number(date1) = publishInterval1,
-            case let .double(double1) = date1,
-            let publishInterval2 = object2["publishdateinterval"],
-            case let .number(date2) = publishInterval2,
-            case let .double(double2) = date2 {
-            return double1 > double2
+          if let companyName1 = object1["company"]?.string,
+            let companyName2 = object2["company"]?.string,
+            companyName1 != companyName2 {
+            return companyName1 < companyName2
+          } else if let publishInterval1 = object1["publishdateinterval"]?.double,
+            let publishInterval2 = object2["publishdateinterval"]?.double {
+            return publishInterval1 > publishInterval2
           }
         default:
           return true
