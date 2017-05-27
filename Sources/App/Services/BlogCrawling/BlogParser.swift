@@ -123,15 +123,13 @@ public class BlogParser {
     if let publishDate = self.articlePath.publishDate {
       parse(doc: doc, xPath: publishDate) { date in
         let trimmedString = date.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        print("Trimmed string is \(trimmedString)")
         let month = StringParsedDateComponents.month(from: trimmedString)
         let day = StringParsedDateComponents.day(from: trimmedString)
         let year = StringParsedDateComponents.year(from: trimmedString)
-        print("--- \(month), \(day), \(year)")
         if let parsedDate = StringParsedDateComponents.dateFrom(year: year, month: month, day: day) {
           publishDateIntervals.append(parsedDate.timeIntervalSince1970 as Double)
         }
-        publishDates.append(date)
+        publishDates.append(trimmedString)
         self.publishDates.append(date)
       }
     }
