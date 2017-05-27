@@ -11,6 +11,11 @@ let blogController = BlogController()
 blogController.addRoutes(drop: drop)
 drop.resource("blogs", blogController)
 
+// The home page request.
+drop.get { request in
+  return "Hello"
+}
+
 let blogCrawlingService = BlogCrawlingService()
 blogCrawlingService.startService()
 
