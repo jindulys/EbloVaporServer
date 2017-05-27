@@ -38,6 +38,7 @@ Some useful commands:
     
     // To clean up your heroku database.
     heroku pg:reset DATABASE_URL
+    // Then repush your code to heroku to restart the service.
     
 ## TODO List
 
