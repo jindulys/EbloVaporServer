@@ -36,7 +36,7 @@
               "title": "//*[@id='main']/div[2]/div/article/h1/a",
               "href": "//*[@id='main']/div[2]/div/article/h1/a/@href",
               "date": "//article//header//time",
-              "nextPage": "//div[@class='pager']//a/@href"
+              "nextPage": "//div[@class='pager']//a[@title='Next']/@href"
               },
               {
               "name": "Uber",

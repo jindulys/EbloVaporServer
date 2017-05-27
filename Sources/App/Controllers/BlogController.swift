@@ -22,13 +22,32 @@ final class BlogController: ResourceRepresentable {
   
   /// Get all articles
   func articleWebPage(request: Request) throws -> ResponseRepresentable {
-    let articles = try Blog.all().sorted { blog1, blog2 in
-      if blog1.companyName != blog1.companyName {
-        return blog1.companyName < blog2.companyName
+    let articles = try Blog.all()
+    var articleNodes = try articles.makeNode()
+    if case let .array(articleNodeArray) = articleNodes {
+      // Sort article according to company and publish date.
+      let sortedNodeArray = articleNodeArray.sorted { node1, node2 in
+        switch (node1, node2) {
+        case let (.object(object1), .object(object2)):
+          if let companyName1 = object1["company"], case let .string(name1) = companyName1,
+            let companyName2 = object2["company"], case let .string(name2) = companyName2,
+            name1 != name2 {
+            return name1 < name2
+          } else if let publishInterval1 = object1["publishdateinterval"],
+            case let .number(date1) = publishInterval1,
+            case let .double(double1) = date1,
+            let publishInterval2 = object2["publishdateinterval"],
+            case let .number(date2) = publishInterval2,
+            case let .double(double2) = date2 {
+            return double1 > double2
+          }
+        default:
+          return true
+        }
+        return true
       }
-      return true
+      articleNodes = try sortedNodeArray.makeNode()
     }
-    let articleNodes = try articles.makeNode()
     return try drop.view.make("article", Node(node: ["articles" : articleNodes]))
   }
   

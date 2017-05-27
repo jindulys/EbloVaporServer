@@ -33,6 +33,9 @@ public final class Blog: Model {
   /// the publish date.
   public var publishDate: String
   
+  /// The publish date time interval.
+  public var publishDateInterval: Double
+  
   public init(node: Node, in context: Context) throws {
     id = try node.extract("id")
     title = try node.extract("title")
@@ -41,6 +44,12 @@ public final class Blog: Model {
     authorName = try node.extract("authorname")
     authorAvatar = try node.extract("authoravatar")
     publishDate = try node.extract("publishdate")
+    // Note: use all lower case for the key.
+    if let interval = node["publishdateinterval"]?.double {
+      publishDateInterval = interval
+    } else {
+      publishDateInterval = 0.0
+    }
   }
   
   public init(title: String,
@@ -48,7 +57,8 @@ public final class Blog: Model {
        companyName: String,
        authorName: String = "",
        authorAvatar: String = "",
-       publishDate: String = "") {
+       publishDate: String = "",
+       publishDateInterval: Double = 0.0) {
     self.title = title
     self.urlString = urlString
     self.companyName = companyName
@@ -56,6 +66,7 @@ public final class Blog: Model {
     self.authorAvatar = authorAvatar
     self.authorName = authorName
     self.publishDate = publishDate
+    self.publishDateInterval = publishDateInterval
   }
   
   // MARK: JSONRepresentable
@@ -67,7 +78,8 @@ public final class Blog: Model {
         "company" : companyName,
         "authorname" : authorName,
         "authoravatar" : authorAvatar,
-        "publishdate" : publishDate
+        "publishdate" : publishDate,
+        "publishdateinterval" : publishDateInterval
       ])
   }
   
@@ -81,6 +93,7 @@ public final class Blog: Model {
       blogs.string("authorname", optional: true)
       blogs.string("authoravatar", optional: true)
       blogs.string("publishdate", optional: true)
+      blogs.double("publishdateinterval", optional: true)
     })
   }
   

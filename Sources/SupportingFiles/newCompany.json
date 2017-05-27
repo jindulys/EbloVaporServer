@@ -1,13 +1,13 @@
 {
 	"company": [
-    {
-			"name": "Gusto",
-			"baseURL": "http://engineering.gusto.com/",
-			"basedOnBase": true,
-			"title": "//article//h1/a",
-			"href": "//article//h1/a/@href",
-      "date": "//article//header//time",
-      "nextPage": "//nav[@class='pagination']//a[@class='older-posts']/@href"
-		}
+              {
+              "name": "Gilt",
+              "baseURL": "http://tech.gilt.com",
+              "basedOnBase": false,
+              "title": "//*[@id='main']/div[2]/div/article/h1/a",
+              "href": "//*[@id='main']/div[2]/div/article/h1/a/@href",
+              "date": "//article//header//time",
+              "nextPage": "//div[@class='pager']//a[@title='Next']/@href"
+              }
 	]
 }
