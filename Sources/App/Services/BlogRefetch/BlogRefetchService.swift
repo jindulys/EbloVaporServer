@@ -19,7 +19,7 @@ class BlogRefetchService {
   func startService() {
     print("--- Start new service \(Date())")
     self.blogCrawlingService.startService(automaticallySaveWhenCrawlingFinished: true)
-    DispatchQueue.global().asyncAfter(deadline: .now() + 60, execute: {
+    DispatchQueue.global().asyncAfter(deadline: .now() + 60 * 5, execute: {
       print("--- Will start new service")
       self.startService()
     })

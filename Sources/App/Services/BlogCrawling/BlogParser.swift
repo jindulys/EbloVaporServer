@@ -111,7 +111,7 @@ public class BlogParser {
     
     // 1. Find and print all title in current page.
     parse(doc: doc, xPath: self.articlePath.title) { title in
-      print("Find article \(title)")
+      //print("Find article \(title)")
       articles.append(title)
       self.articles.append(title)
     }
@@ -120,7 +120,7 @@ public class BlogParser {
     parse(doc: doc, xPath: self.articlePath.href) { href in
       let articleURL =
         self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-      print("Find article url \(articleURL)")
+      //print("Find article url \(articleURL)")
       articleURLs.append(articleURL)
       self.articleURLs.append(articleURL)
     }
@@ -143,7 +143,7 @@ public class BlogParser {
     // 4. Find all author names.
     if let avatarName = self.articlePath.authorName {
       parse(doc: doc, xPath: avatarName) { name in
-        print("Find author name \(name)")
+        //print("Find author name \(name)")
         authorNames.append(name)
         self.authorNames.append(name)
       }
@@ -154,7 +154,7 @@ public class BlogParser {
       parse(doc: doc, xPath: avatarURL) { href in
         let avatarURL =
           self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(href) : href
-        print("Find author avatar url \(avatarURL)")
+        //print("Find author avatar url \(avatarURL)")
         authorAvatarURLs.append(avatarURL)
         self.authorAvatarURLs.append(avatarURL)
       }
