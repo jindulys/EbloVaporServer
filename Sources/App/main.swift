@@ -28,7 +28,7 @@ timer.setEventHandler() {
   blogRefetchService.startService()
 }
 
-timer.scheduleOneshot(deadline: .now() + 6)
+timer.scheduleOneshot(deadline: .now() + 16)
 if #available(OSX 10.12, *) {
   timer.activate()
 } else {
