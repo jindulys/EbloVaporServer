@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /// The service that refetchs blogs.
 class BlogRefetchService {
