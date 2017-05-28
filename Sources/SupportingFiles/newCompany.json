@@ -1,13 +1,15 @@
 {
 	"company": [
               {
-              "name": "Gilt",
-              "baseURL": "http://tech.gilt.com",
-              "basedOnBase": false,
-              "title": "//*[@id='main']/div[2]/div/article/h1/a",
-              "href": "//*[@id='main']/div[2]/div/article/h1/a/@href",
-              "date": "//article//header//time",
-              "nextPage": "//div[@class='pager']//a[@title='Next']/@href"
+              "name": "yelp",
+              "baseURL": "https://engineeringblog.yelp.com/",
+              "basedOnBase": true,
+              "title": "//article//h3//a",
+              "href": "//article//h3//a/@href",
+              "author": "//article//div[@class='post-info']//img/@alt",
+              "authorAvatar": "//article//div[@class='post-info']//img/@src",
+              "date": "//article//div[@class='post-info']//li[@class='post-date']",
+              "nextPage": "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href"
               }
 	]
 }

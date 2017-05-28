@@ -14,10 +14,33 @@ class BlogCrawlingService {
   /// The crawledblogs.
   var crawledBlog: [Blog] = []
   
+  /// The blogParsers.
   private var blogParsers: [BlogParser] = []
   
+  /// Whether or not automatically save crawled blog when crawling finishes.
+  private var automaticallySaveWhenCrawlingFinished = false
+  
+  /// Whether or not blog crawling has finished.
+  var crawlingFinished: Bool = false {
+    didSet {
+      if (crawlingFinished && !oldValue) && automaticallySaveWhenCrawlingFinished {
+        print("---- AUTOMATICALLY SAVE BLOGS")
+        // Add in a test yelp blog
+//        let testBlog = Blog(title: "Hoooooool lllll",
+//                            urlString: "http://yelp.com/test",
+//                            companyName: "Yelp")
+//        testBlog.publishDate = "May, 27, 2017"
+//        testBlog.publishDateInterval = Date().timeIntervalSince1970
+//        self.crawledBlog.append(testBlog)
+        self.saveCrawledBlog()
+      }
+    }
+  }
+  
   /// Start service
-  func startService() {
+  func startService(automaticallySaveWhenCrawlingFinished: Bool) {
+    crawlingFinished = false
+    self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
     var url = URL(string: "https://api.myjson.com/bins/kt3e5")
     #if os(OSX)
     if EnviromentManager.local {
@@ -64,10 +87,47 @@ class BlogCrawlingService {
       self.blogParsers.forEach { parser in
         parser.parse { finished in
           self.crawledBlog.append(contentsOf: parser.Blogs)
+          self.checkCrawlingStatus()
         }
       }
     } catch {
       print(error)
     }
+  }
+  
+  /// Save crawled blogs.
+  func saveCrawledBlog() {
+    if self.crawlingFinished {
+      do {
+        let existingBlogs = try Blog.all()
+        let existingIdentifiers = existingBlogs.map { blog in
+          return blog.string()
+        }
+        self.crawledBlog.forEach { blog in
+          if existingIdentifiers.contains(blog.string()) {
+            return
+          }
+          print("This blog does not exist in our data base\(blog.string())")
+          var toSave = blog
+          do {
+            try toSave.save()
+          } catch {
+            print("Some Error \(error)")
+          }
+        }
+      } catch {
+        print("Can not load Blogs from data base.")
+      }
+    } else {
+      print("BlogCrawlingService not finish yet.")
+    }
+    self.automaticallySaveWhenCrawlingFinished = false
+  }
+  
+  private func checkCrawlingStatus() {
+    print("--- Before \(self.crawlingFinished)")
+    self.crawlingFinished =
+      self.blogParsers.filter { $0.finished == false }.count == 0
+    print("--- After \(self.crawlingFinished)")
   }
 }

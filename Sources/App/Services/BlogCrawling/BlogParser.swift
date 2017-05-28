@@ -31,6 +31,9 @@ public class BlogParser {
   /// Array contains all the article titles founded.
   public private(set) var articles: [String] = []
   
+  /// Whether or not current parser finishes its parsing job.
+  public private(set) var finished: Bool
+  
   /// Array for articleURLs.
   public private(set) var articleURLs: [String] = []
   
@@ -62,6 +65,7 @@ public class BlogParser {
     self.metaData = metaData
     self.companyName = companyName
     self.basedOnBaseURL = basedOnBaseURL
+    self.finished = false
   }
   
   /// Parse this company's blog.
@@ -70,7 +74,9 @@ public class BlogParser {
   }
   
   public func parse(completion: ((Bool) -> ())?) {
+    self.finished = false
     parse(url: self.baseURLString)
+    self.finished = true
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
@@ -81,7 +87,7 @@ public class BlogParser {
   
   // MARK: Priave
   /// Parse a URL.
-  public func parse(url: String) {
+  private func parse(url: String) {
     guard self.currentDepth < maxDepth else {
       print("Blog Parser has reached the max depth")
       return
