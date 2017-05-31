@@ -62,6 +62,36 @@ class BlogCrawlingService {
           return
       }
       
+      var parsedCompanies: [Company] = []
+      // Get companys and save if needed.
+      for companyInfo in companies {
+        if let baseURL = companyInfo["baseURL"] as? String,
+          let companyName = companyInfo["name"] as? String {
+          let company = Company(companyName: companyName, companyUrlString: baseURL)
+          parsedCompanies.append(company)
+        }
+      }
+      
+      do {
+        let existingCompanies = try Company.all()
+        let existingIdentifiers = existingCompanies.map { company in
+          return company.string()
+        }
+        parsedCompanies.forEach { company in
+          if existingIdentifiers.contains(company.string()) {
+            return
+          }
+          var toSave = company
+          do {
+            try toSave.save()
+          } catch {
+            print("Some Error \(error)")
+          }
+        }
+      } catch {
+        print("Can not load Company from data base.")
+      }
+      
       for companyInfo in companies {
         // Create blog parsers.
         if let titlePath = companyInfo["title"] as? String,
