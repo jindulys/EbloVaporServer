@@ -40,7 +40,7 @@ class BlogCrawlingService {
   func startService(automaticallySaveWhenCrawlingFinished: Bool) {
     crawlingFinished = false
     self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
-    var url = URL(string: "https://api.myjson.com/bins/kt3e5")
+    var url = URL(string: "https://api.myjson.com/bins/eci0h")
     #if os(OSX)
     if EnviromentManager.local {
       let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"
@@ -103,7 +103,9 @@ class BlogCrawlingService {
                                             authorAvatar: companyInfo["authorAvatar"] as? String,
                                             publishDate: companyInfo["date"] as? String)
           
-          let metaInfo = BlogMetaInfo(nextPageXPath: companyInfo["nextPage"] as? String)
+          let metaInfo = BlogMetaInfo(nextPageXPath: companyInfo["nextPage"] as? String,
+                                      needRemoveExtraBlog: companyInfo["needRemoveRepeatBlog"] as? Bool,
+                                      needRemoveEndSlash: companyInfo["needRemoveEndSlash"] as? Bool)
 
           if let validCompanyID = company.id {
             print("--- create valid parser for company: \(company.companyName) id: \(validCompanyID).")

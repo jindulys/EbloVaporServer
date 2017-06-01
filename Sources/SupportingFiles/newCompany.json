@@ -1,15 +1,15 @@
 {
 	"company": [
               {
-              "name": "yelp",
-              "baseURL": "https://engineeringblog.yelp.com/",
+              "name" : "LinkedIn",
+              "baseURL" : "https://engineering.linkedin.com/blog/",
               "basedOnBase": true,
-              "title": "//article//h3//a",
-              "href": "//article//h3//a/@href",
-              "author": "//article//div[@class='post-info']//img/@alt",
-              "authorAvatar": "//article//div[@class='post-info']//img/@src",
-              "date": "//article//div[@class='post-info']//li[@class='post-date']",
-              "nextPage": "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href"
+              "title" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a",
+              "href" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a/@href",
+              "nextPage": "//div[@id='older']/a/@href",
+              "date": "//*[@id='post-list-component']/ul/li[1]/div[2]/div[1]/div[1]/h3/span[2]",
+              "needRemoveRepeatBlog": true,
+              "needRemoveEndSlash": true
               }
 	]
 }

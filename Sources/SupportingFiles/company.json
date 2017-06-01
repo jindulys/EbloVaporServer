@@ -12,16 +12,6 @@
               "nextPage": "//div[@class='pagination-block']//div[@class='arrange_unit']//a[@class='u-decoration-none next pagination-links_anchor']/@href"
               },
               {
-              "name": "Realm.io",
-              "baseURL": "https://news.realm.io/news/",
-              "basedOnBase": true,
-              "title": "//figure//h5",
-              "href": "//figure//a[@class='post quick']/@href",
-              "author": "//figure//a[@class='twitter-handle']",
-              "date": "//figure//span[@class='article-date']",
-              "nextPage": "//a[@class='btn btn-outline btn-large next']/@href"
-              },
-              {
               "name": "Artsy",
               "baseURL": "https://artsy.github.io/",
               "basedOnBase": true,
@@ -47,15 +37,6 @@
               "date": "//article//header//time"
               },
               {
-              "name": "Made Tech",
-              "baseURL": "https://www.madetech.com/blog/",
-              "basedOnBase": true,
-              "title": "/html//article/h3/a",
-              "href": "/html//article/h3/a/@href",
-              "author": "//article//div[@class='newsArticles-list-item-meta']/img/@alt",
-              "nextPage": "//nav[@class='pagination']//span[@class='next']//a/@href"
-              },
-              {
               "name": "Gusto",
               "baseURL": "http://engineering.gusto.com/",
               "basedOnBase": true,
@@ -63,6 +44,26 @@
               "href": "//article//h1/a/@href",
               "date": "//article//header//time",
               "nextPage": "//nav[@class='pagination']//a[@class='older-posts']/@href"
+              },
+              {
+              "name" : "Glow团队技术博客",
+              "baseURL" : "http://tech.glowing.com/cn/",
+              "basedOnBase": true,
+              "title" : "//article/header//a",
+              "href" : "//article/header//a/@href",
+              "nextPage": "//nav//a[@class='older-posts']/@href",
+              "date": "//article//time"
+              },
+              {
+              "name" : "LinkedIn",
+              "baseURL" : "https://engineering.linkedin.com/blog/",
+              "basedOnBase": true,
+              "title" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a",
+              "href" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a/@href",
+              "nextPage": "//div[@id='older']/a/@href",
+              "date": "//*[@id='post-list-component']/ul/li[1]/div[2]/div[1]/div[1]/h3/span[2]",
+              "needRemoveRepeatBlog": true,
+              "needRemoveEndSlash": true
               }
 	]
 }

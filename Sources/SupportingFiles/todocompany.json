@@ -1,0 +1,23 @@
+{
+  "company": [
+              {
+              "name": "Realm.io",
+              "baseURL": "https://news.realm.io/news/",
+              "basedOnBase": true,
+              "title": "//figure//h5",
+              "href": "//figure//a[@class='post quick']/@href",
+              "author": "//figure//a[@class='twitter-handle']",
+              "date": "//figure//span[@class='article-date']",
+              "nextPage": "//a[@class='btn btn-outline btn-large next']/@href"
+              },
+              {
+              "name": "Made Tech",
+              "baseURL": "https://www.madetech.com/blog/",
+              "basedOnBase": true,
+              "title": "/html//article/h3/a",
+              "href": "/html//article/h3/a/@href",
+              "author": "//article//div[@class='newsArticles-list-item-meta']/img/@alt",
+              "nextPage": "//nav[@class='pagination']//span[@class='next']//a/@href"
+              }
+              ]
+}

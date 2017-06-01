@@ -50,6 +50,9 @@ public class BlogParser {
   /// Array for parse blog.
   public private(set) var Blogs: [Blog] = []
   
+  /// A set of parsed url.
+  private var parsedURLString: Set<String> = []
+  
   public var companyID: Node
   
   /// The maximum depth for blog pagination.
@@ -80,11 +83,12 @@ public class BlogParser {
   
   public func parse(completion: ((Bool) -> ())?) {
     self.finished = false
-    parse(url: self.baseURLString)
+    parse(urlString: self.baseURLString)
     self.finished = true
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
+    self.parsedURLString.removeAll()
     if let completion = completion {
       completion(true)
     }
@@ -92,13 +96,18 @@ public class BlogParser {
   
   // MARK: Priave
   /// Parse a URL.
-  private func parse(url: String) {
+  private func parse(urlString: String) {
     guard self.currentDepth < maxDepth else {
       print("Blog Parser has reached the max depth")
       return
     }
     
-    guard let url = URL(string: url) else {
+    guard !self.parsedURLString.contains(urlString) else {
+      print("All parsed")
+      return
+    }
+    
+    guard let url = URL(string: urlString) else {
       print("Invalid url");
       return
     }
@@ -207,14 +216,26 @@ public class BlogParser {
     self.Blogs.append(contentsOf: currentGeneratedBlogs)
 
     self.currentDepth += 1
+    self.parsedURLString.insert(urlString)
     
     if let nextPageXPath = self.metaData.nextPageXPath {
       parse(doc: doc, xPath: nextPageXPath) { nextPage in
         var toBeParseURLString =
             self.basedOnBaseURL ? self.baseURLString.appendTrimmedRepeatedElementString(nextPage) : nextPage
         toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
+        if let needRemoveExtraBlog = self.metaData.needRemoveExtraBlog,
+          needRemoveExtraBlog == true {
+          print("**** Notice remove extra blog")
+          toBeParseURLString = toBeParseURLString.replacingOccurrences(of: "blog/blog", with: "blog")
+        }
+        if let needRemoveEndSlash = self.metaData.needRemoveEndSlash,
+          needRemoveEndSlash == true,
+          toBeParseURLString.hasSuffix("/") {
+          print("**** Notice remove extra blog")
+          toBeParseURLString.remove(at: toBeParseURLString.index(before: toBeParseURLString.endIndex))
+        }
         print("next to be parsed url: \(toBeParseURLString)")
-        self.parse(url: toBeParseURLString)
+        self.parse(urlString: toBeParseURLString)
       }
     }
   }
