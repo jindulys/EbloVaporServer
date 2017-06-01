@@ -35,6 +35,9 @@ Some useful commands:
     vapor run prepare --revert
     // To setup your database again
     run your project again.
+    // Idk for why I need to manually delete company table.
+    DROP TABLE IF EXISTS companys;
+    DROP SEQUENCE IF EXISTS companys_id_seq;
     
     // To clean up your heroku database.
     heroku pg:reset DATABASE_URL
