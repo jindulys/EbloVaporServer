@@ -64,6 +64,16 @@
               "date": "//*[@id='post-list-component']/ul/li[1]/div[2]/div[1]/div[1]/h3/span[2]",
               "needRemoveRepeatBlog": true,
               "needRemoveEndSlash": true
+              },
+              {
+              "name": "Made Tech",
+              "baseURL": "https://www.madetech.com/blog/",
+              "basedOnBase": true,
+              "title": "/html//article/h3/a",
+              "href": "/html//article/h3/a/@href",
+              "author": "//article//div[@class='newsArticles-list-item-meta']/img/@alt",
+              "nextPage": "//nav[@class='pagination']//span[@class='next']//a/@href",
+              "needRemoveRepeatBlog": true
               }
 	]
 }
