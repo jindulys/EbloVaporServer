@@ -56,7 +56,7 @@
               },
               {
               "name" : "LinkedIn",
-              "baseURL" : "https://engineering.linkedin.com/blog/",
+              "baseURL" : "https://engineering.linkedin.com/blog",
               "basedOnBase": true,
               "title" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a",
               "href" : "//*[@id='post-list-component']/ul/li/div[2]/div[1]/div[1]/h2/a/@href",
@@ -67,7 +67,7 @@
               },
               {
               "name": "Made Tech",
-              "baseURL": "https://www.madetech.com/blog/",
+              "baseURL": "https://www.madetech.com/blog",
               "basedOnBase": true,
               "title": "/html//article/h3/a",
               "href": "/html//article/h3/a/@href",
