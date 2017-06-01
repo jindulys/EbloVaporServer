@@ -9,6 +9,7 @@
 import Foundation
 import Kanna
 import Utilities
+import Vapor
 
 /// This is a class used for parse a url.
 public class BlogParser {
@@ -49,6 +50,8 @@ public class BlogParser {
   /// Array for parse blog.
   public private(set) var Blogs: [Blog] = []
   
+  public var companyID: Node
+  
   /// The maximum depth for blog pagination.
   private let maxDepth: Int = 10
   
@@ -59,13 +62,15 @@ public class BlogParser {
        articlePath: ArticleInfoPath,
        metaData: BlogMetaInfo,
        companyName: String,
-       basedOnBaseURL: Bool) {
+       basedOnBaseURL: Bool,
+       companyID: Node) {
     self.baseURLString = baseURLString
     self.articlePath = articlePath
     self.metaData = metaData
     self.companyName = companyName
     self.basedOnBaseURL = basedOnBaseURL
     self.finished = false
+    self.companyID = companyID
   }
   
   /// Parse this company's blog.
@@ -165,7 +170,8 @@ public class BlogParser {
       for (index, title) in articles.enumerated() {
         let blog = Blog(title: title,
                         urlString: articleURLs[index],
-                        companyName: self.companyName)
+                        companyName: self.companyName,
+                        companyId: self.companyID)
         currentGeneratedBlogs.append(blog)
       }
     }

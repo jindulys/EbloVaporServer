@@ -44,10 +44,10 @@ public final class Company: Model {
   }
   
   public static func prepare(_ database: Database) throws {
-    try database.create("companys", closure: { companies in
-      companies.id()
-      companies.string("companyname")
-      companies.string("companyurlstring")
+    try database.create("companys", closure: { companys in
+      companys.id()
+      companys.string("companyname")
+      companys.string("companyurlstring")
     })
   }
   

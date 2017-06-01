@@ -24,7 +24,6 @@ class BlogCrawlingService {
   var crawlingFinished: Bool = false {
     didSet {
       if (crawlingFinished && !oldValue) && automaticallySaveWhenCrawlingFinished {
-        print("---- AUTOMATICALLY SAVE BLOGS")
         // Add in a test yelp blog
 //        let testBlog = Blog(title: "Hoooooool lllll",
 //                            urlString: "http://yelp.com/test",
@@ -62,31 +61,12 @@ class BlogCrawlingService {
           return
       }
       
-      var parsedCompanies: [Company] = []
-      // Get companys and save if needed.
-      for companyInfo in companies {
-        if let baseURL = companyInfo["baseURL"] as? String,
-          let companyName = companyInfo["name"] as? String {
-          let company = Company(companyName: companyName, companyUrlString: baseURL)
-          parsedCompanies.append(company)
-        }
-      }
-      
+      /// The current existed companies.
+      var existingCompaniesDict: [String : Company] = [:]
       do {
         let existingCompanies = try Company.all()
-        let existingIdentifiers = existingCompanies.map { company in
-          return company.string()
-        }
-        parsedCompanies.forEach { company in
-          if existingIdentifiers.contains(company.string()) {
-            return
-          }
-          var toSave = company
-          do {
-            try toSave.save()
-          } catch {
-            print("Some Error \(error)")
-          }
+        existingCompanies.forEach { company in
+          existingCompaniesDict[company.string()] = company
         }
       } catch {
         print("Can not load Company from data base.")
@@ -99,21 +79,45 @@ class BlogCrawlingService {
           let baseURL = companyInfo["baseURL"] as? String,
           let basedOnBase = companyInfo["basedOnBase"] as? Bool,
           let companyName = companyInfo["name"] as? String {
+          
+          // Create company instance.
+          var company = Company(companyName: companyName, companyUrlString: baseURL)
+          
+          // Check whether this company exist or not, set company to correct value.
+          if let exist = existingCompaniesDict[company.string()] {
+            company = exist
+          } else {
+            var toSave = company
+            do {
+              try toSave.save()
+              existingCompaniesDict[toSave.string()] = toSave
+              company = toSave
+            } catch {
+              print("Some Error \(error)")
+            }
+          }
+          
           let articleInfo = ArticleInfoPath(title: titlePath,
                                             href: href,
                                             authorName: companyInfo["author"] as? String,
                                             authorAvatar: companyInfo["authorAvatar"] as? String,
                                             publishDate: companyInfo["date"] as? String)
+          
           let metaInfo = BlogMetaInfo(nextPageXPath: companyInfo["nextPage"] as? String)
-          let companyParser = BlogParser(baseURLString: baseURL,
-                                         articlePath: articleInfo,
-                                         metaData: metaInfo,
-                                         companyName: companyName,
-                                         basedOnBaseURL: basedOnBase)
-          self.blogParsers.append(companyParser)
+
+          if let validCompanyID = company.id {
+            print("--- create valid parser for company: \(company.companyName) id: \(validCompanyID).")
+            let companyParser = BlogParser(baseURLString: baseURL,
+                                           articlePath: articleInfo,
+                                           metaData: metaInfo,
+                                           companyName: companyName,
+                                           basedOnBaseURL: basedOnBase,
+                                           companyID: validCompanyID)
+            self.blogParsers.append(companyParser)
+          }
         }
       }
-      
+
       self.blogParsers.forEach { parser in
         parser.parse { finished in
           self.crawledBlog.append(contentsOf: parser.Blogs)
@@ -155,9 +159,7 @@ class BlogCrawlingService {
   }
   
   private func checkCrawlingStatus() {
-    print("--- Before \(self.crawlingFinished)")
     self.crawlingFinished =
       self.blogParsers.filter { $0.finished == false }.count == 0
-    print("--- After \(self.crawlingFinished)")
   }
 }

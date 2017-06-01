@@ -16,11 +16,17 @@ final class CompanyController: ResourceRepresentable {
   func addRoutes(drop: Droplet) {
     let base = drop.grouped("company")
     base.get("all", handler: getCompanys)
+    base.get(Company.self, "blogs", handler: blogsIndex)
   }
   
   /// Get test blogs
   func getCompanys(request: Request) throws -> ResponseRepresentable {
     return try JSON(node: Company.all().makeNode())
+  }
+  
+  func blogsIndex(request: Request, company: Company) throws -> ResponseRepresentable {
+    let blog = try company.children(nil, Blog.self).all()
+    return try JSON(node: blog.makeNode())
   }
   
   func create(request: Request) throws -> ResponseRepresentable {
