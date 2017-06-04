@@ -48,7 +48,7 @@ public class BlogParser {
   public private(set) var authorAvatarURLs: [String] = []
   
   /// Array for parse blog.
-  public private(set) var Blogs: [Blog] = []
+  public private(set) var blogs: [Blog] = []
   
   /// A set of parsed url.
   private var parsedURLString: Set<String> = []
@@ -90,7 +90,7 @@ public class BlogParser {
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
-    if let firstBlog = self.Blogs.first,
+    if let firstBlog = self.blogs.first,
       firstBlog.title != self.company.firstBlogTitle {
       // If first blog title has changed, update company's first blog title.
       self.company.firstBlogTitle = firstBlog.title
@@ -101,6 +101,10 @@ public class BlogParser {
       }
     }
     self.parsedURLString.removeAll()
+    // NOTE: Here we revert the order of parsed blog, so the first found which should be the latest
+    // will actually be the last of the array. This is helpful for orderring blogs in a time-reasonable
+    // way.
+    self.blogs = self.blogs.reversed()
     if let completion = completion {
       completion(true)
     }
@@ -225,7 +229,7 @@ public class BlogParser {
       }
     }
     
-    self.Blogs.append(contentsOf: currentGeneratedBlogs)
+    self.blogs.append(contentsOf: currentGeneratedBlogs)
 
     self.currentDepth += 1
     self.parsedURLString.insert(urlString)

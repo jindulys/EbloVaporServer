@@ -122,7 +122,7 @@ class BlogCrawlingService {
 
       self.blogParsers.forEach { parser in
         parser.parse { finished in
-          self.crawledBlog.append(contentsOf: parser.Blogs)
+          self.crawledBlog.append(contentsOf: parser.blogs)
           self.checkCrawlingStatus()
         }
       }
