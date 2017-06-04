@@ -114,7 +114,7 @@ class BlogCrawlingService {
                                            metaData: metaInfo,
                                            companyName: companyName,
                                            basedOnBaseURL: basedOnBase,
-                                           companyID: validCompanyID)
+                                           company: company)
             self.blogParsers.append(companyParser)
           }
         }

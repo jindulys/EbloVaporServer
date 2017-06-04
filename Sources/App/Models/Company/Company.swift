@@ -22,24 +22,31 @@ public final class Company: Model {
   /// Company url string.
   public var companyUrlString: String
   
+  /// The first blog title string.
+  public var firstBlogTitle: String
+  
   public init(node: Node, in context: Context) throws {
     id = try node.extract("id")
     companyName = try node.extract("companyname")
     companyUrlString = try node.extract("companyurlstring")
+    firstBlogTitle = try node.extract("firstblogtitle")
   }
   
   public init(companyName: String,
-              companyUrlString: String) {
+              companyUrlString: String,
+              firstBlogTitle: String = "") {
     self.companyName = companyName
     self.companyUrlString = companyUrlString
     self.id = nil
+    self.firstBlogTitle = firstBlogTitle
   }
   
   public func makeNode(context: Context) throws -> Node {
     return try Node(node: [
         "id" : id,
         "companyname" : companyName,
-        "companyurlstring" : companyUrlString
+        "companyurlstring" : companyUrlString,
+        "firstblogtitle" : firstBlogTitle
       ])
   }
   
@@ -48,6 +55,7 @@ public final class Company: Model {
       companys.id()
       companys.string("companyname")
       companys.string("companyurlstring")
+      companys.string("firstblogtitle")
     })
   }
   

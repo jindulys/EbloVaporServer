@@ -53,7 +53,9 @@ public class BlogParser {
   /// A set of parsed url.
   private var parsedURLString: Set<String> = []
   
-  public var companyID: Node
+  /// The company of this blog parser.
+  /// NOTE: This is used to update company's information.
+  public var company: Company
   
   /// The maximum depth for blog pagination.
   private let maxDepth: Int = 10
@@ -66,14 +68,14 @@ public class BlogParser {
        metaData: BlogMetaInfo,
        companyName: String,
        basedOnBaseURL: Bool,
-       companyID: Node) {
+       company: Company) {
     self.baseURLString = baseURLString
     self.articlePath = articlePath
     self.metaData = metaData
     self.companyName = companyName
     self.basedOnBaseURL = basedOnBaseURL
     self.finished = false
-    self.companyID = companyID
+    self.company = company
   }
   
   /// Parse this company's blog.
@@ -88,6 +90,16 @@ public class BlogParser {
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
     print("Parse Finished, total found \(self.publishDates.count) dates")
+    if let firstBlog = self.Blogs.first,
+      firstBlog.title != self.company.firstBlogTitle {
+      // If first blog title has changed, update company's first blog title.
+      self.company.firstBlogTitle = firstBlog.title
+      do {
+        try self.company.save()
+      } catch {
+        print("Can not save company's first blog title update")
+      }
+    }
     self.parsedURLString.removeAll()
     if let completion = completion {
       completion(true)
@@ -180,7 +192,7 @@ public class BlogParser {
         let blog = Blog(title: title,
                         urlString: articleURLs[index],
                         companyName: self.companyName,
-                        companyId: self.companyID)
+                        companyId: self.company.id)
         currentGeneratedBlogs.append(blog)
       }
     }
