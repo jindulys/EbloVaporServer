@@ -58,7 +58,7 @@ public class BlogParser {
   public var company: Company
   
   /// The maximum depth for blog pagination.
-  private let maxDepth: Int = 10
+  private let maxDepth: Int = 20
   
   /// Current depth has processed.
   private var currentDepth: Int = 0
