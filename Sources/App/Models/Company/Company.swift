@@ -66,6 +66,6 @@ public final class Company: Model {
 
 extension Company: Unique {
   public func identifier() -> String {
-    return self.companyName + self.companyUrlString
+    return self.companyName
   }
 }

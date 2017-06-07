@@ -89,10 +89,16 @@ class BlogCrawlingService {
           var company = Company(companyName: companyName, companyUrlString: baseURL)
           
           // Check whether this company exist or not, set company to correct value.
-          if let exist = existingCompaniesDict[company.string()] {
+          if let exist = existingCompaniesDict[company.string()],
+            company.companyUrlString == exist.companyUrlString {
             company = exist
           } else {
+            // Use the new information of a company.
             var toSave = company
+            if let exist = existingCompaniesDict[company.string()] {
+              // If we already have existing one, we use the existing one's id.
+              toSave.id = exist.id
+            }
             do {
               try toSave.save()
               existingCompaniesDict[toSave.string()] = toSave
