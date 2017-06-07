@@ -98,6 +98,15 @@
               "date" : "//article//p[@class='text-muted']",
               "basedOnBase": false,
               "nextPage": "//a[@class='next page-numbers']/@href"
+              },
+              {
+              "name" : "Indeed",
+              "baseURL" : "http://engineering.indeedblog.com/blog/",
+              "title" : "//article//h1/a",
+              "href" : "//article//h1/a/@href",
+              "date" : "//article//p[@class='date entry-meta']//time",
+              "author": "//article//p[@class='date entry-meta']//span[@class='byline']/a",
+              "basedOnBase": false
               }
 	]
 }
