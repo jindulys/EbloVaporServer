@@ -7,6 +7,7 @@ let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations += Company.self
 drop.preparations += Blog.self
+drop.preparations += CompanySource.self
 
 let blogController = BlogController()
 blogController.addRoutes(drop: drop)
@@ -15,6 +16,10 @@ drop.resource("blogs", blogController)
 let companyController = CompanyController()
 companyController.addRoutes(drop: drop)
 drop.resource("companys", companyController)
+
+let companySourceController = CompanySourceController()
+//companySourceController.addRoutes(drop: drop)
+drop.resource("companysources", companySourceController)
 
 // The home page request.
 drop.get { request in

@@ -39,8 +39,13 @@ class BlogCrawlingService {
   /// Start service
   func startService(automaticallySaveWhenCrawlingFinished: Bool) {
     crawlingFinished = false
+    let companySource = try! CompanySource.all()
+    guard companySource.count > 0,
+      let companySourceURLString = companySource.first?.companyDataURLString else {
+      return
+    }
     self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
-    var url = URL(string: "https://api.myjson.com/bins/11fssd")
+    var url = URL(string: companySourceURLString)
     #if os(OSX)
     if EnviromentManager.local {
       let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"

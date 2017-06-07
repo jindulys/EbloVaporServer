@@ -30,7 +30,7 @@ final class CompanyController: ResourceRepresentable {
   }
   
   func create(request: Request) throws -> ResponseRepresentable {
-    var company = try request.compay()
+    var company = try request.company()
     try company.save()
     return company
   }
@@ -47,7 +47,7 @@ final class CompanyController: ResourceRepresentable {
 }
 
 extension Request {
-  func compay() throws -> Company {
+  func company() throws -> Company {
     guard let json = json else {
       throw Abort.badRequest
     }

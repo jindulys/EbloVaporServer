@@ -1,0 +1,7 @@
+#extend("base")
+
+#export("body") {
+  #loop(sources, "source") {
+    <h1>#(source.companydataurlstring)</h1>
+  }
+}
