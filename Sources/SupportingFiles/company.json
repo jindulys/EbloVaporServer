@@ -107,6 +107,16 @@
               "date" : "//article//p[@class='date entry-meta']//time",
               "author": "//article//p[@class='date entry-meta']//span[@class='byline']/a",
               "basedOnBase": false
+              },
+              {
+              "name" : "Spotify",
+              "baseURL" : "https://labs.spotify.com",
+              "title" : "/html//article//h1/a",
+              "href" : "/html//article//h1//a/@href",
+              "date" : "/html//article//span[@class='posted-on']/time",
+              "author": "/html//article//span[@class='author vcard']/a",
+              "basedOnBase": false,
+              "nextPage": "//li[@class='nav-previous previous']/a/@href"
               }
 	]
 }
