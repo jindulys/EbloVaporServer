@@ -39,13 +39,7 @@ class BlogCrawlingService {
   /// Start service
   func startService(automaticallySaveWhenCrawlingFinished: Bool) {
     crawlingFinished = false
-    let companySource = try! CompanySource.all()
-    guard companySource.count > 0,
-      let companySourceURLString = companySource.first?.companyDataURLString else {
-      return
-    }
-    self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
-    var url = URL(string: companySourceURLString)
+    var url: URL? = nil
     #if os(OSX)
     if EnviromentManager.local {
       let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"
@@ -53,6 +47,17 @@ class BlogCrawlingService {
       url = NSURL.fileURL(withPath: urlPath!)
     }
     #endif
+    if url == nil {
+      let companySource = try! CompanySource.all()
+      guard companySource.count > 0,
+        let companySourceURLString = companySource.first?.companyDataURLString else {
+          return
+      }
+      url = URL(string: companySourceURLString)
+    }
+    
+    self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
+
     guard let data = try? Data(contentsOf: url!) else {
       print("\(self) can not load data from URL \(url!)")
       return
