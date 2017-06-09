@@ -93,11 +93,13 @@ class BlogCrawlingService {
           // Create company instance.
           var company = Company(companyName: companyName, companyUrlString: baseURL)
           
+          var newCompany = false
           // Check whether this company exist or not, set company to correct value.
           if let exist = existingCompaniesDict[company.string()],
             company.companyUrlString == exist.companyUrlString {
             company = exist
           } else {
+            newCompany = true
             // Use the new information of a company.
             var toSave = company
             if let exist = existingCompaniesDict[company.string()] {
@@ -136,7 +138,8 @@ class BlogCrawlingService {
                                            metaData: metaInfo,
                                            companyName: companyName,
                                            basedOnBaseURL: basedOnBase,
-                                           company: company)
+                                           company: company,
+                                           fetchAllBlogs: newCompany)
             self.blogParsers.append(companyParser)
           }
         }

@@ -29,6 +29,11 @@ public class BlogParser {
   /// Meta data for article.
   public let metaData: BlogMetaInfo
   
+  /// Whether or not fetch all blogs.
+  /// If we have fetched this blog then next time what we should do is only check
+  /// the first page to avoid repeated fetching all blogs.
+  public let fetchAllBlogs: Bool
+  
   /// Array contains all the article titles founded.
   public private(set) var articles: [String] = []
   
@@ -58,7 +63,7 @@ public class BlogParser {
   public var company: Company
   
   /// The maximum depth for blog pagination.
-  private let maxDepth: Int = 20
+  private var maxDepth: Int
   
   /// Current depth has processed.
   private var currentDepth: Int = 0
@@ -68,7 +73,8 @@ public class BlogParser {
        metaData: BlogMetaInfo,
        companyName: String,
        basedOnBaseURL: Bool,
-       company: Company) {
+       company: Company,
+       fetchAllBlogs: Bool) {
     self.baseURLString = baseURLString
     self.articlePath = articlePath
     self.metaData = metaData
@@ -76,6 +82,8 @@ public class BlogParser {
     self.basedOnBaseURL = basedOnBaseURL
     self.finished = false
     self.company = company
+    self.fetchAllBlogs = fetchAllBlogs
+    self.maxDepth = self.fetchAllBlogs ? 20 : 1
   }
   
   /// Parse this company's blog.

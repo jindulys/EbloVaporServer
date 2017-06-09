@@ -9,6 +9,14 @@
               "author": "/html//article//span[@class='author vcard']/a",
               "basedOnBase": false,
               "nextPage": "//li[@class='nav-previous previous']/a/@href"
+              },
+              {
+              "name": "Artsy",
+              "baseURL": "https://artsy.github.io/",
+              "basedOnBase": true,
+              "title": "//*[@id='content']/div/article/div/div[1]/header/a/h2",
+              "href": "//*[@id='content']/div/article/div/div[1]/header/a/@href",
+              "nextPage": "(//div[@class='pagination']/a)[last()]/@href"
               }
 	]
 }
