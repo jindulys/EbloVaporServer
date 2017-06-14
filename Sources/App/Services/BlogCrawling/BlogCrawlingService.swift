@@ -41,6 +41,9 @@ class BlogCrawlingService {
     crawlingFinished = false
     var url: URL? = nil
     #if os(OSX)
+    // NOTE: If you want to use local file, you need to add in `SupportingFiles`
+    // Folder to your workspace, and add in `company.json`, `newCompany.json`
+    // You also need to add them to `Copy Files` build phases of `App` target.
     if EnviromentManager.local {
       let resourceName = EnviromentManager.newCompany ? "newCompany" : "company"
       let urlPath = Bundle.main.path(forResource: resourceName, ofType: "json")
@@ -48,12 +51,7 @@ class BlogCrawlingService {
     }
     #endif
     if url == nil {
-      let companySource = try! CompanySource.all()
-      guard companySource.count > 0,
-        let companySourceURLString = companySource.first?.companyDataURLString else {
-          return
-      }
-      url = URL(string: companySourceURLString)
+      url = URL(string: "https://api.myjson.com/bins/ztmnh")
     }
     
     self.automaticallySaveWhenCrawlingFinished = automaticallySaveWhenCrawlingFinished
@@ -132,7 +130,7 @@ class BlogCrawlingService {
                                       needRemoveEndSlash: companyInfo["needRemoveEndSlash"] as? Bool)
 
           if let validCompanyID = company.id {
-            print("--- create valid parser for company: \(company.companyName) id: \(validCompanyID).")
+            //print("--- create valid parser for company: \(company.companyName) id: \(validCompanyID).")
             let companyParser = BlogParser(baseURLString: baseURL,
                                            articlePath: articleInfo,
                                            metaData: metaInfo,

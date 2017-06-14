@@ -20,7 +20,6 @@ class BlogRefetchService {
     print("--- Start new service \(Date())")
     self.blogCrawlingService.startService(automaticallySaveWhenCrawlingFinished: true)
     DispatchQueue.global().asyncAfter(deadline: .now() + 60 * 60, execute: {
-      print("--- Will start new service")
       self.startService()
     })
   }

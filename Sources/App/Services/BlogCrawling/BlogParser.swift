@@ -97,7 +97,7 @@ public class BlogParser {
     self.finished = true
     print("Parse Finished, total found \(self.articles.count) aritcles")
     print("Parse Finished, total found \(self.articleURLs.count) article urls")
-    print("Parse Finished, total found \(self.publishDates.count) dates")
+    //print("Parse Finished, total found \(self.publishDates.count) dates")
     if let firstBlog = self.blogs.first,
       firstBlog.title != self.company.firstBlogTitle {
       // If first blog title has changed, update company's first blog title.
@@ -249,16 +249,14 @@ public class BlogParser {
         toBeParseURLString = toBeParseURLString.appendTrimmedRepeatedElementString("/")
         if let needRemoveExtraBlog = self.metaData.needRemoveExtraBlog,
           needRemoveExtraBlog == true {
-          print("**** Notice remove extra blog")
           toBeParseURLString = toBeParseURLString.replacingOccurrences(of: "blog/blog", with: "blog")
         }
         if let needRemoveEndSlash = self.metaData.needRemoveEndSlash,
           needRemoveEndSlash == true,
           toBeParseURLString.hasSuffix("/") {
-          print("**** Notice remove extra blog")
           toBeParseURLString.remove(at: toBeParseURLString.index(before: toBeParseURLString.endIndex))
         }
-        print("next to be parsed url: \(toBeParseURLString)")
+        //print("next to be parsed url: \(toBeParseURLString)")
         self.parse(urlString: toBeParseURLString)
       }
     }
