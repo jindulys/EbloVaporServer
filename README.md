@@ -1,6 +1,16 @@
-# Eblo Vapor Server
+# Eblo Server
 
-This is my Eblo(Engineering Blogs App) Server, backed by wonderful vapor.
+This a server side app for my application Eblo, which is used to check tech company engineering blogs' update . It was built with Swift and backed by Vapor.
+
+If you've ever checked some tech company's engineering blog, it's likely that you want to check them more often than you did. Some tech companys' engineering blogs are quite useful, they'd like to share their best practice, latest do & learn etc.
+
+There is an awesome repo that collects quite a lot of those engineering blogs.
+
+But still it is not easy for us to check whether there are some updates. Why not make it easy for us to know that there are something new and check them out!
+
+You can think this app is a web crawler, it uses XPath to retrieve URL's information and save them to database. Thanks to Vapor it is also easy to provide routes to access those data.
+
+
 
 To run this:
 
