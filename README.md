@@ -8,7 +8,7 @@ If you've ever checked some tech company's engineering blog, it's likely that yo
 
 But still it is not easy for us to check whether there are updates. Why not make it easy for us to know that there are something new and check them out! You can think this app is a web crawler, it uses XPath to retrieve URL's information and saves them to database. Thanks to Vapor it is quite easy to provide access to those data through routing so you can get those information and develop your own app.
 
-I also built an [iOS client app](https://github.com/jindulys/Eblo) which consume data from this server app.
+I also built an [iOS client app](https://github.com/jindulys/Eblo) which consumes data from this server app.
 
 Log one            |   Log two
 :-------------------------:|:-------------------------:
