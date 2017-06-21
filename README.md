@@ -10,7 +10,55 @@ But still it is not easy for us to check whether there are some updates. Why not
 
 You can think this app is a web crawler, it uses XPath to retrieve URL's information and save them to database. Thanks to Vapor it is also easy to provide routes to access those data.
 
+# Run locally
 
+To run this app locally, first you need to download and install Vapor. NOTE: This app is using Vapor 1. You can follow ray wenderlich's screencast.https://videos.raywenderlich.com/screencasts/509-server-side-swift-with-vapor-getting-started
+
+This app is using POSTGRESQL as its database, so you need to install POSTGRESQL
+   
+    brew install postgres
+    
+This project is using swift package manager to manage its dependencies. 
+
+    swift package reset
+    swift package fetch
+    swift package generate-xcodeproj
+    open *.xcodeproj
+    
+Note: You might have some error about Kanna, follow that repo's instruction to install libs that are needed.
+
+https://github.com/tid-kijyun/Kanna
+
+Possibly you need
+    
+    brew install libxml2
+    brew link --force libxml2
+    brew install pkg-config
+
+Build this app to see whether it can be compiled correctly.
+
+Setup your local database
+
+    psql -h localhost
+    createdb yourdatabase
+    
+Then you can check you database
+
+     psql
+     \l  // check all your database
+     \connect yourdatabase // connect to your database
+
+At this time you are almost set, update your postgresql.json file to 
+
+      {
+        "host": "127.0.0.1",
+        "user": "yourusername",
+        "password": "",
+        "database": "yourdatabase",
+        "port": 5432
+      }
+
+Now you can run your project and check your logs. Also you can check through your browser by 
 
 To run this:
 
