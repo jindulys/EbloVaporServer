@@ -22,28 +22,29 @@ Also you can check by using this [URL](https://ebloserver.herokuapp.com/blog/tes
 
 To run this app locally, first you need to download and install Vapor. NOTE: This app is using Vapor 1. You can follow [ray wenderlich's screencast](https://videos.raywenderlich.com/screencasts/509-server-side-swift-with-vapor-getting-started) to finish this step.
 
-This app uses POSTGRESQL as its database, so you need to install **POSTGRESQL**
-   
-    brew install postgres
-    postgres -D /usr/local/var/postgres // start your postgresql database service
-
+This app uses POSTGRESQL as its database, so you need to install **POSTGRESQL** first.
+```bash
+brew install postgres
+postgres -D /usr/local/var/postgres // start your postgresql database service
+```
 Clone this repo to your computer.
 
     git clone https://github.com/jindulys/EbloVaporServer.git
 
 Dependency management is via swift package manager, run. 
-
-    swift package reset
-    swift package fetch
-    swift package generate-xcodeproj
-    open *.xcodeproj
+```bash
+swift package reset
+swift package fetch
+swift package generate-xcodeproj
+open *.xcodeproj
+```
     
 Note: You might encounter some error related to Kanna, follow it [instruction](https://github.com/tid-kijyun/Kanna) to install libs that are needed. Possibly you need
-  
-    brew install libxml2
-    brew link --force libxml2
-    brew install pkg-config
-
+```bash  
+brew install libxml2
+brew link --force libxml2
+brew install pkg-config
+```
 **Build** this app to see whether it can be compiled correctly.
 
 Before run this app, you need to setup your local database
@@ -58,14 +59,15 @@ Then you can check you database
      \connect yourdatabase // connect to your database
 
 At this time one more step:  update your [**postgresql.json**](/Config/secrets.postgresql.json) file's content to 
-
-      {
-        "host": "127.0.0.1",
-        "user": "yourusername",
-        "password": "",
-        "database": "yourdatabase",
-        "port": 5432
-      }
+```JSON
+{
+  "host": "127.0.0.1",
+  "user": "yourusername",
+  "password": "",
+  "database": "yourdatabase",
+  "port": 5432
+}
+```
 
 Now you can change target to **App** build and run your project and check your logs. Also you can check through your browser by http://localhost:8080/blog/article
 
@@ -76,29 +78,31 @@ Now you can change target to **App** build and run your project and check your l
 You can follow ray wenderlich's screencast to deploy your repo to **Heroku**.
 
 You need to update your [**postgresql.json**](/Config/secrets.postgresql.json) file's content to
-
-      {
-        "url": "yourherokupostgresqlURL",
-        "user": "username",
-        "password": "",
-        "database": "databasename",
-        "port": 5432
-      }
+```JSON
+{
+  "url": "yourherokupostgresqlURL",
+  "user": "username",
+  "password": "",
+  "database": "databasename",
+  "port": 5432
+}
+```
       
 # Useful tips for your development
      
 Database related
-
-    // To check your data base
-    psql
-    // then, for check all relations.
-    \d 
-    // check all database you have
-    \l
-    // connect to other data base
-    \connect your_other_database
-    // Show the schema for your table
-    \d+ TABLENAME
+```psql
+// To check your data base
+psql
+// then, for check all relations.
+\d 
+// check all database you have
+\l
+// connect to other data base
+\connect your_other_database
+// Show the schema for your table
+\d+ TABLENAME
+```
     
 Heroku related
     
