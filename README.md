@@ -1,3 +1,7 @@
+<h3 align="center">
+    <img src="Images/eblo.png" width=540 alt="Ji: a Swift XML/HTML parser" />
+</h3>
+
 # Eblo Server
 
 This a server side app for my application **Eblo**, which is used to check tech company engineering blogs. It was built with Swift and backed by **Vapor**.
