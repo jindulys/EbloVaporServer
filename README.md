@@ -14,9 +14,7 @@ But still it is not easy for us to check whether there are updates. Why not make
 
 I also built an [iOS client app](https://github.com/jindulys/Eblo) which consumes data from this server app.
 
-Log one            |   Log two
-:-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/logone.png)  |  ![](https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/logtwo.png)
+![](https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/doublelog.png)
 
 Also you can check by using this [URL](https://ebloserver.herokuapp.com/blog/test) to see the prod data I generated.
 
