@@ -35,6 +35,8 @@ Following are some snapshots that indicates the process of parsing blogs.
 
 I also built an [iOS client app](https://github.com/jindulys/Eblo) which consumes data from this server app.
 
+![](https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/apps.png)
+
 # Run locally
 
 To run this app locally, first you need to download and install Vapor. NOTE: This app is using Vapor 1. You can follow [ray wenderlich's screencast](https://videos.raywenderlich.com/screencasts/509-server-side-swift-with-vapor-getting-started) to finish this step.
@@ -86,9 +88,7 @@ At this time one more step:  update your [**postgresql.json**](/Config/secrets.p
 }
 ```
 
-Now you can change target to **App** build and run your project and check your logs. Also you can check through your browser by http://localhost:8080/blog/article
-
-<img src="https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/localhost.png" alt="logone" title="logone" width="600"/>
+Now you can change target to **App** build and run your project and check your logs. Also you can check whether it works or not by typing http://localhost:8080/blog/article on your browser.
 
 # Run remotely
 
@@ -105,7 +105,7 @@ You need to update your [**postgresql.json**](/Config/secrets.postgresql.json) f
 }
 ```
       
-# Useful tips for your development
+## Useful tips for your development
      
 Database related
 ```psql
