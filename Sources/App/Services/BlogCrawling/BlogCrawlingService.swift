@@ -129,7 +129,7 @@ class BlogCrawlingService {
                                       needRemoveExtraBlog: companyInfo["needRemoveRepeatBlog"] as? Bool,
                                       needRemoveEndSlash: companyInfo["needRemoveEndSlash"] as? Bool)
 
-          if let validCompanyID = company.id {
+          if let _ = company.id {
             //print("--- create valid parser for company: \(company.companyName) id: \(validCompanyID).")
             let companyParser = BlogParser(baseURLString: baseURL,
                                            articlePath: articleInfo,
