@@ -12,13 +12,28 @@ If you've ever checked some tech company's engineering blog, it's likely that yo
 
 But still it is not easy for us to check whether there are updates. Why not make it easy for us to know that there are something new and check them out! You can think this app is a web crawler, it uses XPath to retrieve URL's information and saves them to database. Thanks to Vapor it is quite easy to provide access to those data through routing so you can get those information and develop your own app.
 
-I also built an [iOS client app](https://github.com/jindulys/Eblo) which consumes data from this server app.
+Supported Routes         |  Description |
+---------------- |  -------- |
+[Demo Articles](https://ebloserver.herokuapp.com/blog/article) | Show all blogs fetched
+[Articles JSON](https://ebloserver.herokuapp.com/blog/test) | Show all blogs fetched - **JSON**
+[Companies](https://ebloserver.herokuapp.com/company/all) | Show all companies
+[Yelp](https://ebloserver.herokuapp.com/company/1/blogs) | Yelp Blogs - **JSON**
+[Artsy](https://ebloserver.herokuapp.com/company/2/blogs) | Artsy Blogs - **JSON**
+[Gilt](https://ebloserver.herokuapp.com/company/3/blogs) | Gilt Blogs - **JSON**
+[Uber](https://ebloserver.herokuapp.com/company/4/blogs) | Uber Blogs - **JSON**
+[Gusto](https://ebloserver.herokuapp.com/company/5/blogs) | Gusto Blogs - **JSON**
+[Glow](https://ebloserver.herokuapp.com/company/6/blogs) | Glow Blogs - **JSON**
+[Linkedin](https://ebloserver.herokuapp.com/company/7/blogs) | Linkedin Blogs - **JSON**
+[Made Tech](https://ebloserver.herokuapp.com/company/8/blogs) | Made Tech Blogs - **JSON**
+[Azavea](https://ebloserver.herokuapp.com/company/9/blogs) | Azavea Blogs - **JSON**
+[Indeed](https://ebloserver.herokuapp.com/company/10/blogs) | Indeed Blogs - **JSON**
+[Spotify](https://ebloserver.herokuapp.com/company/11/blogs) | Spotify Blogs - **JSON**
+
+Following are some snapshots that indicates the process of parsing blogs.
 
 ![](https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/doublelog.png)
 
-Also you can check by using this [URL](https://ebloserver.herokuapp.com/blog/test) to see the prod data I generated.
-
-<img src="https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/localhostjson.png" alt="logone" title="logone" width="500"/>
+I also built an [iOS client app](https://github.com/jindulys/Eblo) which consumes data from this server app.
 
 # Run locally
 
