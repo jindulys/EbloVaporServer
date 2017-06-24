@@ -101,14 +101,9 @@ class BlogCrawlingService {
             // Use the new information of a company.
             var toSave = company
             if let exist = existingCompaniesDict[company.string()] {
-              // If we already have existing one, we use the existing one's id.
-              toSave.id = exist.id
-              do {
-                // We need to delete existing one from data base, because there is no update.
-                try exist.delete()
-              } catch {
-                print("Can not delete existing company")
-              }
+              // If we already have existing one, update existing one's info.
+              exist.companyUrlString = company.companyUrlString
+              toSave = exist
             }
             do {
               try toSave.save()
