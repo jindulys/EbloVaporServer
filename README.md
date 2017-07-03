@@ -155,7 +155,7 @@ Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for ins
 
 ## 💧 Community
 
-You can join the wechat group if you are intrested.
+You can reach me with wechat: jindulys_uw
 
-<img src="https://raw.githubusercontent.com/jindulys/EbloVaporServer/master/Images/wechat.JPG" alt="logone" title="logone" width="300"/>
+
 
