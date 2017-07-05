@@ -1,5 +1,5 @@
 <h3 align="center">
-    <img src="Images/eblo.png" width=540 alt="Ji: a Swift XML/HTML parser" />
+    <img src="Images/eblo.png" width=540/>
 </h3>
 
 # Eblo Server
