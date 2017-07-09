@@ -35,11 +35,12 @@ extension String {
     let array = ["sky", "china", "test", "hello", "US",
                  "procrastinate", "root", "Apple", "iOS",
                  "machine", "waterloo", "glass", "night"]
-    let number = Int(arc4random_uniform(5))
+    srandom(UInt32(time(nil)))
+    let number = Int(arc4random() % 10)
     var ret = ""
     for _ in 0..<number {
-      let index = Int(arc4random_uniform(UInt32(array.count - 1)))
-      let count = Int(arc4random_uniform(3))
+      let index = Int(arc4random() % UInt32(array.count))
+      let count = Int(arc4random() % 6)
       ret += array[index]*count
     }
     return ret
