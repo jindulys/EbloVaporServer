@@ -29,4 +29,30 @@ extension String {
       return ""
     }
   }
+  
+  /// Return a random string.
+  public static func randomString() -> String {
+    let array = ["sky", "china", "test", "hello", "US",
+                 "procrastinate", "root", "Apple", "iOS",
+                 "machine", "waterloo", "glass", "night"]
+    let number = Int(arc4random_uniform(5))
+    var ret = ""
+    for _ in 0..<number {
+      let index = Int(arc4random_uniform(UInt32(array.count - 1)))
+      let count = Int(arc4random_uniform(3))
+      ret += array[index]*count
+    }
+    return ret
+  }
+}
+
+func *(left: String, right: Int) -> String {
+  guard right >= 0 else {
+    return ""
+  }
+  var ret = ""
+  for _ in 0..<right {
+    ret += left
+  }
+  return ret
 }
