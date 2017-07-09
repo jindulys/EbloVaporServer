@@ -237,6 +237,17 @@ public class BlogParser {
       }
     }
     
+    // Test code to add an new article
+    // NOTE: This is used for intentionally creating first blog for yelp, test only.
+    if self.company.companyName == "yelp",
+      self.blogs.count == 0,
+      EnviromentManager.testFirstBlogTitle {
+      let testFirstBlog = Blog(title: String.randomString(),
+                               urlString: "page/2/",
+                               companyName: "yelp",
+                               companyId: self.company.id)
+      self.blogs.append(testFirstBlog)
+    }
     self.blogs.append(contentsOf: currentGeneratedBlogs)
 
     self.currentDepth += 1

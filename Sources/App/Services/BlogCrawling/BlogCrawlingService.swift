@@ -113,7 +113,7 @@ class BlogCrawlingService {
               print("Some Error \(error)")
             }
           }
-          
+
           let articleInfo = ArticleInfoPath(title: titlePath,
                                             href: href,
                                             authorName: companyInfo["author"] as? String,

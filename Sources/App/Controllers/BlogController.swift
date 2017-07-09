@@ -49,6 +49,11 @@ final class BlogController: ResourceRepresentable {
   
   /// Get test blogs
   func getBlogs(request: Request) throws -> ResponseRepresentable {
+    if EnviromentManager.testFirstBlogTitle {
+      let testService = BlogCrawlingService()
+      testService.startService(automaticallySaveWhenCrawlingFinished: true)
+    }
+    print("fetched blogs")
     return try JSON(node: Blog.all().makeNode())
   }
   

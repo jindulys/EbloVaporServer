@@ -16,4 +16,7 @@ struct EnviromentManager {
 
   /// Only test new company.
   static let newCompany: Bool = false
+  
+  /// Used to test first blog title.
+  static let testFirstBlogTitle: Bool = false
 }
